@@ -1,0 +1,270 @@
+diff -ur sundials-2.3.0/src/cvode/fcmix/Makefile.in sundials-2.3.0-DESTDIR/src/cvode/fcmix/Makefile.in
+--- sundials-2.3.0/src/cvode/fcmix/Makefile.in	2006-11-07 00:18:34.000000000 +0100
++++ sundials-2.3.0-DESTDIR/src/cvode/fcmix/Makefile.in	2009-03-02 17:26:53.000000000 +0100
+@@ -57,8 +57,8 @@
+ 	$(LIBTOOL) --mode=link $(CC) $(CFLAGS) -o $(FCVODE_LIB) $(FCVODE_LIB_FILES) -rpath $(libdir) $(LDFLAGS) $(LIBS) -static -version-info $(LIB_REVISION)
+ 
+ install: $(FCVODE_LIB)
+-	$(mkinstalldirs) $(libdir)
+-	$(LIBTOOL) --mode=install $(INSTALL_LIB) $(FCVODE_LIB) $(libdir)
++	$(mkinstalldirs) $(DESTDIR)$(libdir)
++	$(LIBTOOL) --mode=install $(INSTALL_LIB) $(FCVODE_LIB) $(DESTDIR)$(libdir)
+ 
+ uninstall:
+ 	$(LIBTOOL) --mode=uninstall rm -f $(libdir)/$(FCVODE_LIB)
+diff -ur sundials-2.3.0/src/cvode/Makefile.in sundials-2.3.0-DESTDIR/src/cvode/Makefile.in
+--- sundials-2.3.0/src/cvode/Makefile.in	2006-11-07 00:18:34.000000000 +0100
++++ sundials-2.3.0-DESTDIR/src/cvode/Makefile.in	2009-03-02 17:27:22.000000000 +0100
+@@ -69,20 +69,20 @@
+ 	$(LIBTOOL) --mode=link $(CC) $(CFLAGS) -o $(CVODE_LIB) $(CVODE_LIB_FILES) $(SHARED_LIB_FILES) -rpath $(libdir) $(LDFLAGS) $(LIBS) -version-info $(LIB_REVISION)
+ 
+ install: $(CVODE_LIB)
+-	$(mkinstalldirs) $(includedir)/cvode
+-	$(mkinstalldirs) $(libdir)
+-	$(LIBTOOL) --mode=install $(INSTALL_LIB) $(CVODE_LIB) $(libdir)
+-	$(INSTALL_HEADER) $(top_srcdir)/include/cvode/cvode.h         $(includedir)/cvode/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/cvode/cvode_dense.h   $(includedir)/cvode/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/cvode/cvode_band.h    $(includedir)/cvode/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/cvode/cvode_diag.h    $(includedir)/cvode/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/cvode/cvode_spils.h   $(includedir)/cvode/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/cvode/cvode_spbcgs.h  $(includedir)/cvode/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/cvode/cvode_spgmr.h   $(includedir)/cvode/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/cvode/cvode_sptfqmr.h $(includedir)/cvode/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/cvode/cvode_bandpre.h $(includedir)/cvode/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/cvode/cvode_bbdpre.h  $(includedir)/cvode/
+-	$(INSTALL_HEADER) $(top_srcdir)/src/cvode/cvode_impl.h        $(includedir)/cvode/
++	$(mkinstalldirs) $(DESTDIR)$(includedir)/cvode
++	$(mkinstalldirs) $(DESTDIR)$(libdir)
++	$(LIBTOOL) --mode=install $(INSTALL_LIB) $(CVODE_LIB) $(DESTDIR)$(libdir)
++	$(INSTALL_HEADER) $(top_srcdir)/include/cvode/cvode.h         $(DESTDIR)$(includedir)/cvode/
++	$(INSTALL_HEADER) $(top_srcdir)/include/cvode/cvode_dense.h   $(DESTDIR)$(includedir)/cvode/
++	$(INSTALL_HEADER) $(top_srcdir)/include/cvode/cvode_band.h    $(DESTDIR)$(includedir)/cvode/
++	$(INSTALL_HEADER) $(top_srcdir)/include/cvode/cvode_diag.h    $(DESTDIR)$(includedir)/cvode/
++	$(INSTALL_HEADER) $(top_srcdir)/include/cvode/cvode_spils.h   $(DESTDIR)$(includedir)/cvode/
++	$(INSTALL_HEADER) $(top_srcdir)/include/cvode/cvode_spbcgs.h  $(DESTDIR)$(includedir)/cvode/
++	$(INSTALL_HEADER) $(top_srcdir)/include/cvode/cvode_spgmr.h   $(DESTDIR)$(includedir)/cvode/
++	$(INSTALL_HEADER) $(top_srcdir)/include/cvode/cvode_sptfqmr.h $(DESTDIR)$(includedir)/cvode/
++	$(INSTALL_HEADER) $(top_srcdir)/include/cvode/cvode_bandpre.h $(DESTDIR)$(includedir)/cvode/
++	$(INSTALL_HEADER) $(top_srcdir)/include/cvode/cvode_bbdpre.h  $(DESTDIR)$(includedir)/cvode/
++	$(INSTALL_HEADER) $(top_srcdir)/src/cvode/cvode_impl.h        $(DESTDIR)$(includedir)/cvode/
+ 
+ uninstall:
+ 	$(LIBTOOL) --mode=uninstall rm -f $(libdir)/$(CVODE_LIB)
+diff -ur sundials-2.3.0/src/cvodes/Makefile.in sundials-2.3.0-DESTDIR/src/cvodes/Makefile.in
+--- sundials-2.3.0/src/cvodes/Makefile.in	2006-11-07 00:18:34.000000000 +0100
++++ sundials-2.3.0-DESTDIR/src/cvodes/Makefile.in	2009-03-02 17:27:47.000000000 +0100
+@@ -69,20 +69,20 @@
+ 	$(LIBTOOL) --mode=link $(CC) $(CFLAGS) -o $(CVODES_LIB) $(CVODES_LIB_FILES) $(SHARED_LIB_FILES) -rpath $(libdir) $(LDFLAGS) $(LIBS) -version-info $(LIB_REVISION)
+ 
+ install: $(CVODES_LIB)
+-	$(mkinstalldirs) $(includedir)/cvodes
+-	$(mkinstalldirs) $(libdir)
+-	$(LIBTOOL) --mode=install $(INSTALL_LIB) $(CVODES_LIB) $(libdir)
+-	$(INSTALL_HEADER) $(top_srcdir)/include/cvodes/cvodes.h         $(includedir)/cvodes/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/cvodes/cvodes_dense.h   $(includedir)/cvodes/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/cvodes/cvodes_band.h    $(includedir)/cvodes/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/cvodes/cvodes_diag.h    $(includedir)/cvodes/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/cvodes/cvodes_spils.h   $(includedir)/cvodes/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/cvodes/cvodes_spbcgs.h  $(includedir)/cvodes/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/cvodes/cvodes_spgmr.h   $(includedir)/cvodes/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/cvodes/cvodes_sptfqmr.h $(includedir)/cvodes/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/cvodes/cvodes_bandpre.h $(includedir)/cvodes/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/cvodes/cvodes_bbdpre.h  $(includedir)/cvodes/
+-	$(INSTALL_HEADER) $(top_srcdir)/src/cvodes/cvodes_impl.h        $(includedir)/cvodes/
++	$(mkinstalldirs) $(DESTDIR)$(includedir)/cvodes
++	$(mkinstalldirs) $(DESTDIR)$(libdir)
++	$(LIBTOOL) --mode=install $(INSTALL_LIB) $(CVODES_LIB) $(DESTDIR)$(libdir)
++	$(INSTALL_HEADER) $(top_srcdir)/include/cvodes/cvodes.h         $(DESTDIR)$(includedir)/cvodes/
++	$(INSTALL_HEADER) $(top_srcdir)/include/cvodes/cvodes_dense.h   $(DESTDIR)$(includedir)/cvodes/
++	$(INSTALL_HEADER) $(top_srcdir)/include/cvodes/cvodes_band.h    $(DESTDIR)$(includedir)/cvodes/
++	$(INSTALL_HEADER) $(top_srcdir)/include/cvodes/cvodes_diag.h    $(DESTDIR)$(includedir)/cvodes/
++	$(INSTALL_HEADER) $(top_srcdir)/include/cvodes/cvodes_spils.h   $(DESTDIR)$(includedir)/cvodes/
++	$(INSTALL_HEADER) $(top_srcdir)/include/cvodes/cvodes_spbcgs.h  $(DESTDIR)$(includedir)/cvodes/
++	$(INSTALL_HEADER) $(top_srcdir)/include/cvodes/cvodes_spgmr.h   $(DESTDIR)$(includedir)/cvodes/
++	$(INSTALL_HEADER) $(top_srcdir)/include/cvodes/cvodes_sptfqmr.h $(DESTDIR)$(includedir)/cvodes/
++	$(INSTALL_HEADER) $(top_srcdir)/include/cvodes/cvodes_bandpre.h $(DESTDIR)$(includedir)/cvodes/
++	$(INSTALL_HEADER) $(top_srcdir)/include/cvodes/cvodes_bbdpre.h  $(DESTDIR)$(includedir)/cvodes/
++	$(INSTALL_HEADER) $(top_srcdir)/src/cvodes/cvodes_impl.h        $(DESTDIR)$(includedir)/cvodes/
+ 
+ uninstall:
+ 	$(LIBTOOL) --mode=uninstall rm -f $(libdir)/$(CVODES_LIB)
+diff -ur sundials-2.3.0/src/ida/fcmix/Makefile.in sundials-2.3.0-DESTDIR/src/ida/fcmix/Makefile.in
+--- sundials-2.3.0/src/ida/fcmix/Makefile.in	2006-11-07 00:18:34.000000000 +0100
++++ sundials-2.3.0-DESTDIR/src/ida/fcmix/Makefile.in	2009-03-02 17:27:57.000000000 +0100
+@@ -57,8 +57,8 @@
+ 	$(LIBTOOL) --mode=link $(CC) $(CFLAGS) -o $(FIDA_LIB) $(FIDA_LIB_FILES) -rpath $(libdir) $(LDFLAGS) $(LIBS) -static -version-info $(LIB_REVISION)
+ 
+ install: $(FIDA_LIB)
+-	$(mkinstalldirs) $(libdir)
+-	$(LIBTOOL) --mode=install $(INSTALL_LIB) $(FIDA_LIB) $(libdir)
++	$(mkinstalldirs) $(DESTDIR)$(libdir)
++	$(LIBTOOL) --mode=install $(INSTALL_LIB) $(FIDA_LIB) $(DESTDIR)$(libdir)
+ 
+ uninstall:
+ 	$(LIBTOOL) --mode=uninstall rm -f $(libdir)/$(FIDA_LIB)
+diff -ur sundials-2.3.0/src/ida/Makefile.in sundials-2.3.0-DESTDIR/src/ida/Makefile.in
+--- sundials-2.3.0/src/ida/Makefile.in	2006-11-07 00:18:34.000000000 +0100
++++ sundials-2.3.0-DESTDIR/src/ida/Makefile.in	2009-03-02 17:28:16.000000000 +0100
+@@ -69,18 +69,18 @@
+ 	$(LIBTOOL) --mode=link $(CC) $(CFLAGS) -o $(IDA_LIB) $(IDA_LIB_FILES) $(SHARED_LIB_FILES) -rpath $(libdir) $(LDFLAGS) $(LIBS) -version-info $(LIB_REVISION)
+ 
+ install: $(IDA_LIB)
+-	$(mkinstalldirs) $(includedir)/ida
+-	$(mkinstalldirs) $(libdir)
+-	$(LIBTOOL) --mode=install $(INSTALL_LIB) $(IDA_LIB) $(libdir)
+-	$(INSTALL_HEADER) $(top_srcdir)/include/ida/ida.h         $(includedir)/ida/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/ida/ida_dense.h   $(includedir)/ida/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/ida/ida_band.h    $(includedir)/ida/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/ida/ida_spbcgs.h  $(includedir)/ida/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/ida/ida_spgmr.h   $(includedir)/ida/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/ida/ida_sptfqmr.h $(includedir)/ida/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/ida/ida_bbdpre.h  $(includedir)/ida/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/ida/ida_spils.h   $(includedir)/ida/
+-	$(INSTALL_HEADER) $(top_srcdir)/src/ida/ida_impl.h        $(includedir)/ida/
++	$(mkinstalldirs) $(DESTDIR)$(includedir)/ida
++	$(mkinstalldirs) $(DESTDIR)$(libdir)
++	$(LIBTOOL) --mode=install $(INSTALL_LIB) $(IDA_LIB) $(DESTDIR)$(libdir)
++	$(INSTALL_HEADER) $(top_srcdir)/include/ida/ida.h         $(DESTDIR)$(includedir)/ida/
++	$(INSTALL_HEADER) $(top_srcdir)/include/ida/ida_dense.h   $(DESTDIR)$(includedir)/ida/
++	$(INSTALL_HEADER) $(top_srcdir)/include/ida/ida_band.h    $(DESTDIR)$(includedir)/ida/
++	$(INSTALL_HEADER) $(top_srcdir)/include/ida/ida_spbcgs.h  $(DESTDIR)$(includedir)/ida/
++	$(INSTALL_HEADER) $(top_srcdir)/include/ida/ida_spgmr.h   $(DESTDIR)$(includedir)/ida/
++	$(INSTALL_HEADER) $(top_srcdir)/include/ida/ida_sptfqmr.h $(DESTDIR)$(includedir)/ida/
++	$(INSTALL_HEADER) $(top_srcdir)/include/ida/ida_bbdpre.h  $(DESTDIR)$(includedir)/ida/
++	$(INSTALL_HEADER) $(top_srcdir)/include/ida/ida_spils.h   $(DESTDIR)$(includedir)/ida/
++	$(INSTALL_HEADER) $(top_srcdir)/src/ida/ida_impl.h        $(DESTDIR)$(includedir)/ida/
+ 
+ uninstall:
+ 	$(LIBTOOL) --mode=uninstall rm -f $(libdir)/$(IDA_LIB)
+diff -ur sundials-2.3.0/src/kinsol/fcmix/Makefile.in sundials-2.3.0-DESTDIR/src/kinsol/fcmix/Makefile.in
+--- sundials-2.3.0/src/kinsol/fcmix/Makefile.in	2006-11-07 00:18:34.000000000 +0100
++++ sundials-2.3.0-DESTDIR/src/kinsol/fcmix/Makefile.in	2009-03-02 17:28:26.000000000 +0100
+@@ -57,8 +57,8 @@
+ 	$(LIBTOOL) --mode=link $(CC) $(CFLAGS) -o $(FKINSOL_LIB) $(FKINSOL_LIB_FILES) -rpath $(libdir) $(LDFLAGS) $(LIBS) -static -version-info $(LIB_REVISION)
+ 
+ install: $(FKINSOL_LIB)
+-	$(mkinstalldirs) $(libdir)
+-	$(LIBTOOL) --mode=install $(INSTALL_LIB) $(FKINSOL_LIB) $(libdir)
++	$(mkinstalldirs) $(DESTDIR)$(libdir)
++	$(LIBTOOL) --mode=install $(INSTALL_LIB) $(FKINSOL_LIB) $(DESTDIR)$(libdir)
+ 
+ uninstall:
+ 	$(LIBTOOL) --mode=uninstall rm -f $(libdir)/$(FKINSOL_LIB)
+diff -ur sundials-2.3.0/src/kinsol/Makefile.in sundials-2.3.0-DESTDIR/src/kinsol/Makefile.in
+--- sundials-2.3.0/src/kinsol/Makefile.in	2006-11-07 00:18:34.000000000 +0100
++++ sundials-2.3.0-DESTDIR/src/kinsol/Makefile.in	2009-03-02 17:28:44.000000000 +0100
+@@ -69,18 +69,18 @@
+ 	$(LIBTOOL) --mode=link $(CC) $(CFLAGS) -o $(KINSOL_LIB) $(KINSOL_LIB_FILES) $(SHARED_LIB_FILES) -rpath $(libdir) $(LDFLAGS) $(LIBS) -version-info $(LIB_REVISION)
+ 
+ install: $(KINSOL_LIB)
+-	$(mkinstalldirs) $(includedir)/kinsol
+-	$(mkinstalldirs) $(libdir)
+-	$(LIBTOOL) --mode=install $(INSTALL_LIB) $(KINSOL_LIB) $(libdir)
+-	$(INSTALL_HEADER) $(top_srcdir)/include/kinsol/kinsol.h         $(includedir)/kinsol/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/kinsol/kinsol_dense.h   $(includedir)/kinsol/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/kinsol/kinsol_band.h    $(includedir)/kinsol/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/kinsol/kinsol_spgmr.h   $(includedir)/kinsol/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/kinsol/kinsol_spbcgs.h  $(includedir)/kinsol/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/kinsol/kinsol_sptfqmr.h $(includedir)/kinsol/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/kinsol/kinsol_bbdpre.h  $(includedir)/kinsol/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/kinsol/kinsol_spils.h   $(includedir)/kinsol/
+-	$(INSTALL_HEADER) $(top_srcdir)/src/kinsol/kinsol_impl.h        $(includedir)/kinsol/
++	$(mkinstalldirs) $(DESTDIR)$(includedir)/kinsol
++	$(mkinstalldirs) $(DESTDIR)$(libdir)
++	$(LIBTOOL) --mode=install $(INSTALL_LIB) $(KINSOL_LIB) $(DESTDIR)$(libdir)
++	$(INSTALL_HEADER) $(top_srcdir)/include/kinsol/kinsol.h         $(DESTDIR)$(includedir)/kinsol/
++	$(INSTALL_HEADER) $(top_srcdir)/include/kinsol/kinsol_dense.h   $(DESTDIR)$(includedir)/kinsol/
++	$(INSTALL_HEADER) $(top_srcdir)/include/kinsol/kinsol_band.h    $(DESTDIR)$(includedir)/kinsol/
++	$(INSTALL_HEADER) $(top_srcdir)/include/kinsol/kinsol_spgmr.h   $(DESTDIR)$(includedir)/kinsol/
++	$(INSTALL_HEADER) $(top_srcdir)/include/kinsol/kinsol_spbcgs.h  $(DESTDIR)$(includedir)/kinsol/
++	$(INSTALL_HEADER) $(top_srcdir)/include/kinsol/kinsol_sptfqmr.h $(DESTDIR)$(includedir)/kinsol/
++	$(INSTALL_HEADER) $(top_srcdir)/include/kinsol/kinsol_bbdpre.h  $(DESTDIR)$(includedir)/kinsol/
++	$(INSTALL_HEADER) $(top_srcdir)/include/kinsol/kinsol_spils.h   $(DESTDIR)$(includedir)/kinsol/
++	$(INSTALL_HEADER) $(top_srcdir)/src/kinsol/kinsol_impl.h        $(DESTDIR)$(includedir)/kinsol/
+ 
+ uninstall:
+ 	$(LIBTOOL) --mode=uninstall rm -f $(libdir)/$(KINSOL_LIB)
+diff -ur sundials-2.3.0/src/nvec_par/Makefile.in sundials-2.3.0-DESTDIR/src/nvec_par/Makefile.in
+--- sundials-2.3.0/src/nvec_par/Makefile.in	2006-11-07 00:18:34.000000000 +0100
++++ sundials-2.3.0-DESTDIR/src/nvec_par/Makefile.in	2009-03-02 17:29:08.000000000 +0100
+@@ -74,13 +74,13 @@
+ 	 fi
+ 
+ install: $(NVECPAR_LIB) $(FNVECPAR_LIB)
+-	$(mkinstalldirs) $(includedir)/nvector
+-	$(mkinstalldirs) $(libdir)
+-	$(LIBTOOL) --mode=install $(INSTALL_LIB) $(NVECPAR_LIB) $(libdir)
+-	$(INSTALL_HEADER) $(top_srcdir)/include/nvector/nvector_parallel.h $(includedir)/nvector/
++	$(mkinstalldirs) $(DESTDIR)$(includedir)/nvector
++	$(mkinstalldirs) $(DESTDIR)$(libdir)
++	$(LIBTOOL) --mode=install $(INSTALL_LIB) $(NVECPAR_LIB) $(DESTDIR)$(libdir)
++	$(INSTALL_HEADER) $(top_srcdir)/include/nvector/nvector_parallel.h $(DESTDIR)$(includedir)/nvector/
+ 	@if test "X${FCMIX_ENABLED}" = "Xyes"; then                                    \
+-	   echo "${LIBTOOL} --mode=install ${INSTALL_LIB} ${FNVECPAR_LIB} ${libdir}" ; \
+-	   ${LIBTOOL} --mode=install ${INSTALL_LIB} ${FNVECPAR_LIB} ${libdir} ;        \
++	   echo "${LIBTOOL} --mode=install ${INSTALL_LIB} ${FNVECPAR_LIB} $(DESTDIR)${libdir}" ; \
++	   ${LIBTOOL} --mode=install ${INSTALL_LIB} ${FNVECPAR_LIB} $(DESTDIR)${libdir} ;        \
+ 	 fi
+ 
+ uninstall:
+diff -ur sundials-2.3.0/src/nvec_ser/Makefile.in sundials-2.3.0-DESTDIR/src/nvec_ser/Makefile.in
+--- sundials-2.3.0/src/nvec_ser/Makefile.in	2006-11-07 00:18:34.000000000 +0100
++++ sundials-2.3.0-DESTDIR/src/nvec_ser/Makefile.in	2009-03-02 17:29:23.000000000 +0100
+@@ -71,13 +71,13 @@
+ 	fi
+ 
+ install: $(NVECSER_LIB) $(FNVECSER_LIB)
+-	$(mkinstalldirs) $(includedir)/nvector
+-	$(mkinstalldirs) $(libdir)
+-	$(LIBTOOL) --mode=install $(INSTALL_LIB) $(NVECSER_LIB) $(libdir)
+-	$(INSTALL_HEADER) $(top_srcdir)/include/nvector/nvector_serial.h $(includedir)/nvector/
++	$(mkinstalldirs) $(DESTDIR)$(includedir)/nvector
++	$(mkinstalldirs) $(DESTDIR)$(libdir)
++	$(LIBTOOL) --mode=install $(INSTALL_LIB) $(NVECSER_LIB) $(DESTDIR)$(libdir)
++	$(INSTALL_HEADER) $(top_srcdir)/include/nvector/nvector_serial.h $(DESTDIR)$(includedir)/nvector/
+ 	@if test "X${FCMIX_ENABLED}" = "Xyes"; then                                    \
+-	   echo "${LIBTOOL} --mode=install ${INSTALL_LIB} ${FNVECSER_LIB} ${libdir}" ; \
+-	   ${LIBTOOL} --mode=install ${INSTALL_LIB} ${FNVECSER_LIB} ${libdir} ;        \
++	   echo "${LIBTOOL} --mode=install ${INSTALL_LIB} ${FNVECSER_LIB} $(DESTDIR)${libdir}" ; \
++	   ${LIBTOOL} --mode=install ${INSTALL_LIB} ${FNVECSER_LIB} $(DESTDIR)${libdir} ;        \
+ 	 fi
+ 
+ uninstall:
+diff -ur sundials-2.3.0/src/sundials/Makefile.in sundials-2.3.0-DESTDIR/src/sundials/Makefile.in
+--- sundials-2.3.0/src/sundials/Makefile.in	2006-11-07 00:18:34.000000000 +0100
++++ sundials-2.3.0-DESTDIR/src/sundials/Makefile.in	2009-03-02 17:29:49.000000000 +0100
+@@ -52,20 +52,20 @@
+ all: $(SHARED_LIB_FILES)
+ 
+ install: $(SHARED_LIB_FILES)
+-	$(mkinstalldirs)  $(includedir)/sundials
+-	$(mkinstalldirs)  $(bindir)
+-	$(INSTALL_HEADER) $(top_srcdir)/include/sundials/sundials_band.h       $(includedir)/sundials/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/sundials/sundials_dense.h      $(includedir)/sundials/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/sundials/sundials_iterative.h  $(includedir)/sundials/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/sundials/sundials_math.h       $(includedir)/sundials/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/sundials/sundials_types.h      $(includedir)/sundials/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/sundials/sundials_nvector.h    $(includedir)/sundials/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/sundials/sundials_smalldense.h $(includedir)/sundials/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/sundials/sundials_spgmr.h      $(includedir)/sundials/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/sundials/sundials_spbcgs.h     $(includedir)/sundials/
+-	$(INSTALL_HEADER) $(top_srcdir)/include/sundials/sundials_sptfqmr.h    $(includedir)/sundials/
+-	$(INSTALL_HEADER) $(top_builddir)/src/sundials/sundials_config.h       $(includedir)/sundials/
+-	$(INSTALL_PROG)   $(top_builddir)/sundials-config                      $(bindir)/
++	$(mkinstalldirs)  $(DESTDIR)$(includedir)/sundials
++	$(mkinstalldirs)  $(DESTDIR)$(bindir)
++	$(INSTALL_HEADER) $(top_srcdir)/include/sundials/sundials_band.h       $(DESTDIR)$(includedir)/sundials/
++	$(INSTALL_HEADER) $(top_srcdir)/include/sundials/sundials_dense.h      $(DESTDIR)$(includedir)/sundials/
++	$(INSTALL_HEADER) $(top_srcdir)/include/sundials/sundials_iterative.h  $(DESTDIR)$(includedir)/sundials/
++	$(INSTALL_HEADER) $(top_srcdir)/include/sundials/sundials_math.h       $(DESTDIR)$(includedir)/sundials/
++	$(INSTALL_HEADER) $(top_srcdir)/include/sundials/sundials_types.h      $(DESTDIR)$(includedir)/sundials/
++	$(INSTALL_HEADER) $(top_srcdir)/include/sundials/sundials_nvector.h    $(DESTDIR)$(includedir)/sundials/
++	$(INSTALL_HEADER) $(top_srcdir)/include/sundials/sundials_smalldense.h $(DESTDIR)$(includedir)/sundials/
++	$(INSTALL_HEADER) $(top_srcdir)/include/sundials/sundials_spgmr.h      $(DESTDIR)$(includedir)/sundials/
++	$(INSTALL_HEADER) $(top_srcdir)/include/sundials/sundials_spbcgs.h     $(DESTDIR)$(includedir)/sundials/
++	$(INSTALL_HEADER) $(top_srcdir)/include/sundials/sundials_sptfqmr.h    $(DESTDIR)$(includedir)/sundials/
++	$(INSTALL_HEADER) $(top_builddir)/src/sundials/sundials_config.h       $(DESTDIR)$(includedir)/sundials/
++	$(INSTALL_PROG)   $(top_builddir)/sundials-config                      $(DESTDIR)$(bindir)/
+ 
+ uninstall:
+ 	rm -f $(includedir)/sundials/sundials_band.h
