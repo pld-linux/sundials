@@ -1,9 +1,9 @@
 Summary:	SUite of Nonlinear and DIfferential/ALgebraic equation Solvers
 Name:		sundials
 Version:	2.3.0
-Release:	1
+Release:	2
 License:	BSD
-Group:		Applications/Math
+Group:		Development/Libraries
 Source0:	https://computation.llnl.gov/casc/sundials/download/code/%{name}-%{version}.tar.gz
 # Source0-md5:	c236f2a7e0e6a03b8fab3d189471b933
 Patch0:		%{name}-DESTDIR.patch
@@ -23,6 +23,23 @@ CVODES 	solves ODE systems and includes sensitivity analysis
 IDA 	solves initial value problems for differential-algebraic
 	equation (DAE) systems.
 KINSOL 	solves nonlinear algebraic systems.
+
+%package devel
+Summary:	SUNDIALS development files
+Group:		Development/Libraries
+Requires:	%{name} = %{version}-%{release}
+
+%description devel
+This package contains headers and development files needed to
+develop applications with SUNDIALS.
+
+%package static
+Summary:	SUNDIALS static libraries
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description static
+This package contains SUNDIALS static libraries.
 
 %prep
 %setup -q
@@ -57,12 +74,19 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/sundials-config
 %attr(755,root,root) %{_libdir}/lib*.so.*.*.*
-%attr(755,root,root) %{_libdir}/lib*.so
 %attr(755,root,root) %ghost %{_libdir}/lib*.so.0
 %attr(755,root,root) %ghost %{_libdir}/lib*.so.1
-%{_libdir}/lib*.a
+
+%files devel
+%defattr(644,root,root,755)
+%doc README doc/*/*.pdf
+%attr(755,root,root) %{_bindir}/sundials-config
+%attr(755,root,root) %{_libdir}/lib*.so
 %{_libdir}/lib*.la
 %{_includedir}/*
 %{_examplesdir}/%{name}-%{version}
+
+%files static
+%defattr(644,root,root,755)
+%{_libdir}/lib*.a
