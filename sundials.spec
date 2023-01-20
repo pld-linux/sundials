@@ -1,26 +1,32 @@
 # TODO: MPI support
+#
+# Conditional build:
+%bcond_without	openmp	# OpenMP support
+
 Summary:	SUite of Nonlinear and DIfferential/ALgebraic equation Solvers
 Summary(pl.UTF-8):	Zbiór procedur do rozwiązywania równań nieliniowych i różniczkowych/algebraicznych
 Name:		sundials
-Version:	2.3.0
-Release:	2
+Version:	2.6.2
+Release:	1
 License:	BSD
 Group:		Libraries
-Source0:	https://computation.llnl.gov/casc/sundials/download/code/%{name}-%{version}.tar.gz
-# Source0-md5:	c236f2a7e0e6a03b8fab3d189471b933
-Patch0:		%{name}-DESTDIR.patch
-Patch1:		%{name}-ac.patch
-Patch2:		%{name}-format.patch
-URL:		https://computation.llnl.gov/casc/sundials/
-BuildRequires:	autoconf >= 2.50
+Source0:	https://computing.llnl.gov/sites/default/files/inline-files/%{name}-%{version}.tar.gz
+# Source0-md5:	3deeb0ede9f514184c6bd83ecab77d95
+Patch0:		%{name}-cmake.patch
+URL:		https://computing.llnl.gov/projects/sundials
+BuildRequires:	cmake >= 2.8.1
 BuildRequires:	gcc-fortran
-BuildRequires:	libtool
+BuildRequires:	lapack-devel
+%{?with_openmp:BuildRequires:	libgomp-devel}
 BuildRequires:	rpm-build >= 4.6
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 SUNDIALS (SUite of Nonlinear and DIfferential/ALgebraic equation
-Solvers) consists of the following four solvers:
+Solvers) consists of the following solvers:
+
+ARKODE: solves ordinary differential equation (ODE) systems based on
+Runge-Kutta methods.
 
 CVODE: solves initial value problems for ordinary differential
 equation (ODE) systems.
@@ -31,12 +37,18 @@ capabilities (forward and adjoint).
 IDA: solves initial value problems for differential-algebraic equation
 (DAE) systems.
 
+IDAS: solves differential-algebraic equation (DAE) systems with
+sensitivity analysis.
+
 KINSOL: solves nonlinear algebraic systems.
 
 %description -l pl.UTF-8
 SUNDIALS (SUite of Nonlinear and DIfferential/ALgebraic equation
 Solvers) to zbiór procedur do rozwiązywania równań nieliniowych i
 różniczkowych/algebraicznych, składający się z czterech części:
+
+ARKODE - rozwiązuje układy równań różniczkowych zwyczajnych (ODE) przy
+użyciu metod Rungego-Kutty.
 
 CVODE - rozwiązuje problemy wartości początkowej dla układów
 równań różniczkowych zwyczajnych (ODE)
@@ -46,6 +58,9 @@ funkcjonalność analizy wrażliwości (prostej i sprzężonej).
 
 IDA - rozwiązuje problemy wartości początkowej dla układów równań
 różniczkowo-algebraicznych (DAE).
+
+IDAS - rozwiązuje układy równań różniczkowo-algebraicznych z analizą
+wrażliwości.
 
 KINSOL - rozwiązuje układy nieliniowych równań algebraicznych.
 
@@ -90,29 +105,27 @@ Dokumentacja API bibliotek SUNDIALS.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
 
 %build
-%{__libtoolize}
-%{__mv} ltmain.sh config
-%{__aclocal} -I config
-%{__autoconf}
-%configure \
-	F77="gfortran" \
-	--enable-examples \
-	--disable-mpi \
-	--enable-shared
+install -d build
+cd build
+%cmake .. \
+	-DEXAMPLES_INSTALL_PATH=%{_examplesdir}/%{name}-%{version} \
+	-DFCMIX_ENABLE=ON \
+	-DKLU_ENABLE=ON \
+	-DLAPACK_ENABLE=ON \
+	%{?with_openmp:-DOPENMP_ENABLE=ON} \
+	-DPTHREAD_ENABLE=ON
+
+# SUPERLUMT_ENABLE?
 
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	EXS_INSTDIR=$RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
+%{__make} -C build install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -123,42 +136,66 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc LICENSE README
+%attr(755,root,root) %{_libdir}/libsundials_arkode.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsundials_arkode.so.1
 %attr(755,root,root) %{_libdir}/libsundials_cvode.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libsundials_cvode.so.0
+%attr(755,root,root) %ghost %{_libdir}/libsundials_cvode.so.1
 %attr(755,root,root) %{_libdir}/libsundials_cvodes.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libsundials_cvodes.so.1
+%attr(755,root,root) %ghost %{_libdir}/libsundials_cvodes.so.2
 %attr(755,root,root) %{_libdir}/libsundials_ida.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libsundials_ida.so.1
+%attr(755,root,root) %ghost %{_libdir}/libsundials_ida.so.2
+%attr(755,root,root) %{_libdir}/libsundials_idas.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsundials_idas.so.0
 %attr(755,root,root) %{_libdir}/libsundials_kinsol.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libsundials_kinsol.so.0
+%attr(755,root,root) %ghost %{_libdir}/libsundials_kinsol.so.1
+%if %{with openmp}
+%attr(755,root,root) %{_libdir}/libsundials_nvecopenmp.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsundials_nvecopenmp.so.0
+%endif
+%attr(755,root,root) %{_libdir}/libsundials_nvecpthreads.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsundials_nvecpthreads.so.0
 %attr(755,root,root) %{_libdir}/libsundials_nvecserial.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libsundials_nvecserial.so.0
+# Fortran - shared
+%if %{with openmp}
+%attr(755,root,root) %{_libdir}/libsundials_fnvecopenmp.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsundials_fnvecopenmp.so.0
+%endif
+%attr(755,root,root) %{_libdir}/libsundials_fnvecpthreads.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsundials_fnvecpthreads.so.0
+%attr(755,root,root) %{_libdir}/libsundials_fnvecserial.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsundials_fnvecserial.so.0
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/sundials-config
+%attr(755,root,root) %{_libdir}/libsundials_arkode.so
 %attr(755,root,root) %{_libdir}/libsundials_cvode.so
 %attr(755,root,root) %{_libdir}/libsundials_cvodes.so
 %attr(755,root,root) %{_libdir}/libsundials_ida.so
+%attr(755,root,root) %{_libdir}/libsundials_idas.so
 %attr(755,root,root) %{_libdir}/libsundials_kinsol.so
+%if %{with openmp}
+%attr(755,root,root) %{_libdir}/libsundials_nvecopenmp.so
+%endif
+%attr(755,root,root) %{_libdir}/libsundials_nvecpthreads.so
 %attr(755,root,root) %{_libdir}/libsundials_nvecserial.so
-%{_libdir}/libsundials_cvode.la
-%{_libdir}/libsundials_cvodes.la
-%{_libdir}/libsundials_ida.la
-%{_libdir}/libsundials_kinsol.la
-%{_libdir}/libsundials_nvecserial.la
-# Fortran
+# Fortran - shared
+%if %{with openmp}
+%attr(755,root,root) %{_libdir}/libsundials_fnvecopenmp.so
+%endif
+%attr(755,root,root) %{_libdir}/libsundials_fnvecpthreads.so
+%attr(755,root,root) %{_libdir}/libsundials_fnvecserial.so
+# Fortran - static only
+%{_libdir}/libsundials_farkode.a
 %{_libdir}/libsundials_fcvode.a
-%{_libdir}/libsundials_fcvode.la
 %{_libdir}/libsundials_fida.a
-%{_libdir}/libsundials_fida.la
 %{_libdir}/libsundials_fkinsol.a
-%{_libdir}/libsundials_fkinsol.la
 %{_libdir}/libsundials_fnvecserial.a
-%{_libdir}/libsundials_fnvecserial.la
+%{_includedir}/arkode
 %{_includedir}/cvode
 %{_includedir}/cvodes
 %{_includedir}/ida
+%{_includedir}/idas
 %{_includedir}/kinsol
 %{_includedir}/nvector
 %{_includedir}/sundials
@@ -166,11 +203,23 @@ rm -rf $RPM_BUILD_ROOT
 
 %files static
 %defattr(644,root,root,755)
+%{_libdir}/libsundials_arkode.a
 %{_libdir}/libsundials_cvode.a
 %{_libdir}/libsundials_cvodes.a
 %{_libdir}/libsundials_ida.a
+%{_libdir}/libsundials_idas.a
 %{_libdir}/libsundials_kinsol.a
+%if %{with openmp}
+%{_libdir}/libsundials_nvecopenmp.a
+%endif
+%{_libdir}/libsundials_nvecpthreads.a
 %{_libdir}/libsundials_nvecserial.a
+# Fortran
+%if %{with openmp}
+%{_libdir}/libsundials_fnvecopenmp.a
+%endif
+%{_libdir}/libsundials_fnvecpthreads.a
+%{_libdir}/libsundials_fnvecserial.a
 
 %files apidocs
 %defattr(644,root,root,755)
