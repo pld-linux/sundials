@@ -1,0 +1,12 @@
+--- sundials-2.3.0/config/cust_general.m4.orig	2006-11-07 00:18:35.000000000 +0100
++++ sundials-2.3.0/config/cust_general.m4	2023-01-17 06:27:45.147214910 +0100
+@@ -78,7 +78,8 @@ AS_IF([_AC_EVAL_STDERR($ac_linkonly) &&
+ 	 AC_TRY_COMMAND([test -s conftest$ac_exeext])],
+       [$2],
+       [_AC_MSG_LOG_CONFTEST_GENERAL
+-m4_ifvaln([$3], [$3])dnl])[]dnl
++m4_ifvaln([$3], [$3])dnl
++])
+ rm -f conftest.err conftest.$ac_objext \
+       conftest$ac_exeext m4_ifval([$1], [conftest.$ac_ext])[]dnl
+ ])# _AC_LINKONLY_IFELSE
