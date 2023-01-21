@@ -304,3 +304,46 @@
  
  ENDIF(BUILD_SHARED_LIBS)
  
+--- sundials-2.7.0/src/arkode/fcmix/CMakeLists.txt.orig	2016-09-27 19:27:29.000000000 +0200
++++ sundials-2.7.0/src/arkode/fcmix/CMakeLists.txt	2023-01-21 21:23:53.951669359 +0100
+@@ -70,7 +70,7 @@ SET_TARGET_PROPERTIES(sundials_farkode_s
+   PROPERTIES OUTPUT_NAME sundials_farkode CLEAN_DIRECT_OUTPUT 1)
+ 
+ # Install the FARKODE library
+-INSTALL(TARGETS sundials_farkode_static DESTINATION lib)
++INSTALL(TARGETS sundials_farkode_static DESTINATION lib${LIB_SUFFIX})
+ 
+ #
+ MESSAGE(STATUS "Added ARKODE FCMIX module")
+--- sundials-2.7.0/src/cvode/fcmix/CMakeLists.txt.orig	2016-09-27 19:27:29.000000000 +0200
++++ sundials-2.7.0/src/cvode/fcmix/CMakeLists.txt	2023-01-21 21:24:19.988194974 +0100
+@@ -57,7 +57,7 @@ SET_TARGET_PROPERTIES(sundials_fcvode_st
+   PROPERTIES OUTPUT_NAME sundials_fcvode CLEAN_DIRECT_OUTPUT 1)
+ 
+ # Install the FCVODE library
+-INSTALL(TARGETS sundials_fcvode_static DESTINATION lib)
++INSTALL(TARGETS sundials_fcvode_static DESTINATION lib${LIB_SUFFIX})
+ 
+ #
+ MESSAGE(STATUS "Added CVODE FCMIX module")
+--- sundials-2.7.0/src/ida/fcmix/CMakeLists.txt.orig	2016-09-27 19:27:29.000000000 +0200
++++ sundials-2.7.0/src/ida/fcmix/CMakeLists.txt	2023-01-21 21:24:39.378089930 +0100
+@@ -56,6 +56,6 @@ SET_TARGET_PROPERTIES(sundials_fida_stat
+   PROPERTIES OUTPUT_NAME sundials_fida CLEAN_DIRECT_OUTPUT 1)
+ 
+ # Install the FIDA library
+-INSTALL(TARGETS sundials_fida_static DESTINATION lib)
++INSTALL(TARGETS sundials_fida_static DESTINATION lib${LIB_SUFFIX})
+ #
+ MESSAGE(STATUS "Added IDA FCMIX module")
+--- sundials-2.7.0/src/kinsol/fcmix/CMakeLists.txt.orig	2016-09-27 19:27:29.000000000 +0200
++++ sundials-2.7.0/src/kinsol/fcmix/CMakeLists.txt	2023-01-21 21:24:56.191332178 +0100
+@@ -54,7 +54,7 @@ SET_TARGET_PROPERTIES(sundials_fkinsol_s
+   PROPERTIES OUTPUT_NAME sundials_fkinsol CLEAN_DIRECT_OUTPUT 1)
+ 
+ # Install the FKINSOL library
+-INSTALL(TARGETS sundials_fkinsol_static DESTINATION lib)
++INSTALL(TARGETS sundials_fkinsol_static DESTINATION lib${LIB_SUFFIX})
+ 
+ #
+ MESSAGE(STATUS "Added KINSOL FCMIX module")
