@@ -1,4 +1,7 @@
 # TODO: MPI support
+# Hypre http://computation.llnl.gov/projects/hypre-scalable-linear-solvers-multigrid-methods
+# PETSc http://www.mcs.anl.gov/petsc
+# SUPERLUMT http://crd-legacy.lbl.gov/~xiaoye/SuperLU/#superlu_mt
 #
 # Conditional build:
 %bcond_without	openmp	# OpenMP support
@@ -6,14 +9,16 @@
 Summary:	SUite of Nonlinear and DIfferential/ALgebraic equation Solvers
 Summary(pl.UTF-8):	Zbiór procedur do rozwiązywania równań nieliniowych i różniczkowych/algebraicznych
 Name:		sundials
-Version:	2.6.2
+Version:	2.7.0
 Release:	1
 License:	BSD
 Group:		Libraries
-Source0:	https://computing.llnl.gov/sites/default/files/inline-files/%{name}-%{version}.tar.gz
-# Source0-md5:	3deeb0ede9f514184c6bd83ecab77d95
+#Source0Download: https://computing.llnl.gov/projects/sundials/sundials-software
+Source0:	https://github.com/LLNL/sundials/archive/v%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	b1724826fe7289164264750377e52664
 Patch0:		%{name}-cmake.patch
 URL:		https://computing.llnl.gov/projects/sundials
+BuildRequires:	SuiteSparse-KLU-devel
 BuildRequires:	cmake >= 2.8.1
 BuildRequires:	gcc-fortran
 BuildRequires:	lapack-devel
@@ -106,6 +111,9 @@ Dokumentacja API bibliotek SUNDIALS.
 %setup -q
 %patch0 -p1
 
+# duplicate of cvodes/ckpng.pdf
+%{__rm} doc/idas/ckpnt.pdf
+
 %build
 install -d build
 cd build
@@ -113,11 +121,11 @@ cd build
 	-DEXAMPLES_INSTALL_PATH=%{_examplesdir}/%{name}-%{version} \
 	-DFCMIX_ENABLE=ON \
 	-DKLU_ENABLE=ON \
+	-DKLU_INCLUDE_DIR=%{_includedir}/suitesparse \
+	-DKLU_LIBRARY_DIR=%{_libdir} \
 	-DLAPACK_ENABLE=ON \
 	%{?with_openmp:-DOPENMP_ENABLE=ON} \
 	-DPTHREAD_ENABLE=ON
-
-# SUPERLUMT_ENABLE?
 
 %{__make}
 
@@ -139,32 +147,32 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libsundials_arkode.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libsundials_arkode.so.1
 %attr(755,root,root) %{_libdir}/libsundials_cvode.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libsundials_cvode.so.1
+%attr(755,root,root) %ghost %{_libdir}/libsundials_cvode.so.2
 %attr(755,root,root) %{_libdir}/libsundials_cvodes.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libsundials_cvodes.so.2
 %attr(755,root,root) %{_libdir}/libsundials_ida.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libsundials_ida.so.2
 %attr(755,root,root) %{_libdir}/libsundials_idas.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libsundials_idas.so.0
+%attr(755,root,root) %ghost %{_libdir}/libsundials_idas.so.1
 %attr(755,root,root) %{_libdir}/libsundials_kinsol.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libsundials_kinsol.so.1
+%attr(755,root,root) %ghost %{_libdir}/libsundials_kinsol.so.2
 %if %{with openmp}
 %attr(755,root,root) %{_libdir}/libsundials_nvecopenmp.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libsundials_nvecopenmp.so.0
+%attr(755,root,root) %ghost %{_libdir}/libsundials_nvecopenmp.so.2
 %endif
 %attr(755,root,root) %{_libdir}/libsundials_nvecpthreads.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libsundials_nvecpthreads.so.0
+%attr(755,root,root) %ghost %{_libdir}/libsundials_nvecpthreads.so.2
 %attr(755,root,root) %{_libdir}/libsundials_nvecserial.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libsundials_nvecserial.so.0
+%attr(755,root,root) %ghost %{_libdir}/libsundials_nvecserial.so.2
 # Fortran - shared
 %if %{with openmp}
 %attr(755,root,root) %{_libdir}/libsundials_fnvecopenmp.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libsundials_fnvecopenmp.so.0
+%attr(755,root,root) %ghost %{_libdir}/libsundials_fnvecopenmp.so.2
 %endif
 %attr(755,root,root) %{_libdir}/libsundials_fnvecpthreads.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libsundials_fnvecpthreads.so.0
+%attr(755,root,root) %ghost %{_libdir}/libsundials_fnvecpthreads.so.2
 %attr(755,root,root) %{_libdir}/libsundials_fnvecserial.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libsundials_fnvecserial.so.0
+%attr(755,root,root) %ghost %{_libdir}/libsundials_fnvecserial.so.2
 
 %files devel
 %defattr(644,root,root,755)

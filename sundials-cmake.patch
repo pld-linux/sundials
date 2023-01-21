@@ -13,7 +13,7 @@
    ADD_LIBRARY(sundials_arkode_shared SHARED 
      ${arkode_SOURCES}  ${arkode_BL_SOURCES}  ${shared_SOURCES})
  
-+  TARGET_LINK_LIBRARIES(sundials_arkode_shared lapack m)
++  TARGET_LINK_LIBRARIES(sundials_arkode_shared klu lapack m)
 +
    # Set the library name and make sure it is not deleted
    SET_TARGET_PROPERTIES(sundials_arkode_shared
@@ -42,7 +42,7 @@
    ADD_LIBRARY(sundials_cvode_shared SHARED 
      ${cvode_SOURCES}  ${cvode_BL_SOURCES}  ${shared_SOURCES})
  
-+  TARGET_LINK_LIBRARIES(sundials_cvode_shared lapack m)
++  TARGET_LINK_LIBRARIES(sundials_cvode_shared klu lapack m)
 +
    # Set the library name and make sure it is not deleted
    SET_TARGET_PROPERTIES(sundials_cvode_shared
@@ -203,7 +203,7 @@
    ADD_LIBRARY(sundials_cvodes_shared SHARED 
      ${cvodes_SOURCES}  ${cvodes_BL_SOURCES}  ${shared_SOURCES})
  
-+  TARGET_LINK_LIBRARIES(sundials_cvodes_shared lapack m)
++  TARGET_LINK_LIBRARIES(sundials_cvodes_shared klu lapack m)
 +
    # Set the library name and make sure it is not deleted
    SET_TARGET_PROPERTIES(sundials_cvodes_shared
@@ -232,7 +232,7 @@
    ADD_LIBRARY(sundials_ida_shared SHARED
      ${ida_SOURCES}  ${ida_BL_SOURCES} ${shared_SOURCES})
  
-+  TARGET_LINK_LIBRARIES(sundials_ida_shared lapack m)
++  TARGET_LINK_LIBRARIES(sundials_ida_shared klu lapack m)
 +
    # Set the library name and make sure it is not deleted
    SET_TARGET_PROPERTIES(sundials_ida_shared
@@ -261,7 +261,7 @@
    ADD_LIBRARY(sundials_idas_shared SHARED 
      ${idas_SOURCES}  ${idas_BL_SOURCES} ${idas_SLU_SOURCES} ${shared_SOURCES})
  
-+  TARGET_LINK_LIBRARIES(sundials_idas_shared lapack m)
++  TARGET_LINK_LIBRARIES(sundials_idas_shared klu lapack m)
 +
    # Set the library name and make sure it is not deleted
    SET_TARGET_PROPERTIES(sundials_idas_shared
@@ -275,9 +275,9 @@
  
  ENDIF(BUILD_SHARED_LIBS)
  
---- sundials-2.6.2/src/kinsol/CMakeLists.txt.orig	2015-07-31 02:09:13.000000000 +0200
-+++ sundials-2.6.2/src/kinsol/CMakeLists.txt	2023-01-20 06:16:20.537336832 +0100
-@@ -127,7 +127,7 @@ IF(BUILD_STATIC_LIBS)
+--- sundials-2.7.0/src/kinsol/CMakeLists.txt.orig	2016-09-27 19:27:29.000000000 +0200
++++ sundials-2.7.0/src/kinsol/CMakeLists.txt	2023-01-21 07:57:43.080383525 +0100
+@@ -134,7 +134,7 @@ IF(BUILD_STATIC_LIBS)
      PROPERTIES OUTPUT_NAME sundials_kinsol CLEAN_DIRECT_OUTPUT 1)
  
    # Install the KINSOL library
@@ -286,16 +286,16 @@
  
  ENDIF(BUILD_STATIC_LIBS)
  
-@@ -138,6 +138,8 @@ IF(BUILD_SHARED_LIBS)
+@@ -145,6 +145,8 @@ IF(BUILD_SHARED_LIBS)
    ADD_LIBRARY(sundials_kinsol_shared SHARED
-     ${kinsol_SOURCES} ${kinsol_BL_SOURCES} ${kinsol_SLU_SOURCES} ${shared_SOURCES})
+     ${kinsol_SOURCES} ${kinsol_BL_SOURCES} ${kinsol_SLU_SOURCES} ${kinsol_KLU_SOURCES} ${shared_SOURCES})
  
-+  TARGET_LINK_LIBRARIES(sundials_kinsol_shared lapack m)
++  TARGET_LINK_LIBRARIES(sundials_kinsol_shared klu lapack m)
 +
    # Set the library name and make sure it is not deleted
    SET_TARGET_PROPERTIES(sundials_kinsol_shared
      PROPERTIES OUTPUT_NAME sundials_kinsol CLEAN_DIRECT_OUTPUT 1)
-@@ -147,7 +149,7 @@ IF(BUILD_SHARED_LIBS)
+@@ -154,7 +156,7 @@ IF(BUILD_SHARED_LIBS)
      PROPERTIES VERSION ${kinsollib_VERSION} SOVERSION ${kinsollib_SOVERSION})
  
    # Install the KINSOL library
