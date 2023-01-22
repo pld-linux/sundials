@@ -9,13 +9,13 @@
 Summary:	SUite of Nonlinear and DIfferential/ALgebraic equation Solvers
 Summary(pl.UTF-8):	Zbiór procedur do rozwiązywania równań nieliniowych i różniczkowych/algebraicznych
 Name:		sundials
-Version:	2.7.0
+Version:	3.1.1
 Release:	1
 License:	BSD
 Group:		Libraries
 #Source0Download: https://computing.llnl.gov/projects/sundials/sundials-software
 Source0:	https://github.com/LLNL/sundials/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	b1724826fe7289164264750377e52664
+# Source0-md5:	22047ccec82ae7bcfe0ee51f68f70d56
 Patch0:		%{name}-cmake.patch
 URL:		https://computing.llnl.gov/projects/sundials
 BuildRequires:	SuiteSparse-KLU-devel
@@ -124,7 +124,7 @@ cd build
 	-DKLU_INCLUDE_DIR=%{_includedir}/suitesparse \
 	-DKLU_LIBRARY_DIR=%{_libdir} \
 	-DLAPACK_ENABLE=ON \
-	%{?with_openmp:-DOPENMP_ENABLE=ON} \
+	%{?with_openmp:-DOPENMP_ENABLE=ON -DOpenMP_gcc_s_LIBRARY=/%{_lib}/libgcc_s.so} \
 	-DPTHREAD_ENABLE=ON
 
 %{__make}
@@ -143,36 +143,80 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc LICENSE README
+%doc LICENSE README.md
 %attr(755,root,root) %{_libdir}/libsundials_arkode.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libsundials_arkode.so.1
+%attr(755,root,root) %ghost %{_libdir}/libsundials_arkode.so.2
 %attr(755,root,root) %{_libdir}/libsundials_cvode.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libsundials_cvode.so.2
+%attr(755,root,root) %ghost %{_libdir}/libsundials_cvode.so.3
 %attr(755,root,root) %{_libdir}/libsundials_cvodes.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libsundials_cvodes.so.2
+%attr(755,root,root) %ghost %{_libdir}/libsundials_cvodes.so.3
 %attr(755,root,root) %{_libdir}/libsundials_ida.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libsundials_ida.so.2
+%attr(755,root,root) %ghost %{_libdir}/libsundials_ida.so.3
 %attr(755,root,root) %{_libdir}/libsundials_idas.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libsundials_idas.so.1
+%attr(755,root,root) %ghost %{_libdir}/libsundials_idas.so.2
 %attr(755,root,root) %{_libdir}/libsundials_kinsol.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libsundials_kinsol.so.2
+%attr(755,root,root) %ghost %{_libdir}/libsundials_kinsol.so.3
 %if %{with openmp}
 %attr(755,root,root) %{_libdir}/libsundials_nvecopenmp.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libsundials_nvecopenmp.so.2
+%attr(755,root,root) %ghost %{_libdir}/libsundials_nvecopenmp.so.3
 %endif
 %attr(755,root,root) %{_libdir}/libsundials_nvecpthreads.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libsundials_nvecpthreads.so.2
+%attr(755,root,root) %ghost %{_libdir}/libsundials_nvecpthreads.so.3
 %attr(755,root,root) %{_libdir}/libsundials_nvecserial.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libsundials_nvecserial.so.2
+%attr(755,root,root) %ghost %{_libdir}/libsundials_nvecserial.so.3
+%attr(755,root,root) %{_libdir}/libsundials_sunlinsolband.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsundials_sunlinsolband.so.1
+%attr(755,root,root) %{_libdir}/libsundials_sunlinsoldense.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsundials_sunlinsoldense.so.1
+%attr(755,root,root) %{_libdir}/libsundials_sunlinsolklu.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsundials_sunlinsolklu.so.1
+%attr(755,root,root) %{_libdir}/libsundials_sunlinsolpcg.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsundials_sunlinsolpcg.so.1
+%attr(755,root,root) %{_libdir}/libsundials_sunlinsolspbcgs.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsundials_sunlinsolspbcgs.so.1
+%attr(755,root,root) %{_libdir}/libsundials_sunlinsolspfgmr.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsundials_sunlinsolspfgmr.so.1
+%attr(755,root,root) %{_libdir}/libsundials_sunlinsolspgmr.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsundials_sunlinsolspgmr.so.1
+%attr(755,root,root) %{_libdir}/libsundials_sunlinsolsptfqmr.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsundials_sunlinsolsptfqmr.so.1
+%attr(755,root,root) %{_libdir}/libsundials_sunmatrixband.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsundials_sunmatrixband.so.1
+%attr(755,root,root) %{_libdir}/libsundials_sunmatrixdense.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsundials_sunmatrixdense.so.1
+%attr(755,root,root) %{_libdir}/libsundials_sunmatrixsparse.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsundials_sunmatrixsparse.so.1
 # Fortran - shared
 %if %{with openmp}
 %attr(755,root,root) %{_libdir}/libsundials_fnvecopenmp.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libsundials_fnvecopenmp.so.2
+%attr(755,root,root) %ghost %{_libdir}/libsundials_fnvecopenmp.so.3
 %endif
 %attr(755,root,root) %{_libdir}/libsundials_fnvecpthreads.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libsundials_fnvecpthreads.so.2
+%attr(755,root,root) %ghost %{_libdir}/libsundials_fnvecpthreads.so.3
 %attr(755,root,root) %{_libdir}/libsundials_fnvecserial.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libsundials_fnvecserial.so.2
+%attr(755,root,root) %ghost %{_libdir}/libsundials_fnvecserial.so.3
+%attr(755,root,root) %{_libdir}/libsundials_fsunlinsolband.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsundials_fsunlinsolband.so.1
+%attr(755,root,root) %{_libdir}/libsundials_fsunlinsoldense.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsundials_fsunlinsoldense.so.1
+%attr(755,root,root) %{_libdir}/libsundials_fsunlinsolklu.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsundials_fsunlinsolklu.so.1
+%attr(755,root,root) %{_libdir}/libsundials_fsunlinsolpcg.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsundials_fsunlinsolpcg.so.1
+%attr(755,root,root) %{_libdir}/libsundials_fsunlinsolspbcgs.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsundials_fsunlinsolspbcgs.so.1
+%attr(755,root,root) %{_libdir}/libsundials_fsunlinsolspfgmr.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsundials_fsunlinsolspfgmr.so.1
+%attr(755,root,root) %{_libdir}/libsundials_fsunlinsolspgmr.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsundials_fsunlinsolspgmr.so.1
+%attr(755,root,root) %{_libdir}/libsundials_fsunlinsolsptfqmr.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsundials_fsunlinsolsptfqmr.so.1
+%attr(755,root,root) %{_libdir}/libsundials_fsunmatrixband.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsundials_fsunmatrixband.so.1
+%attr(755,root,root) %{_libdir}/libsundials_fsunmatrixdense.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsundials_fsunmatrixdense.so.1
+%attr(755,root,root) %{_libdir}/libsundials_fsunmatrixsparse.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libsundials_fsunmatrixsparse.so.1
 
 %files devel
 %defattr(644,root,root,755)
@@ -187,12 +231,34 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 %attr(755,root,root) %{_libdir}/libsundials_nvecpthreads.so
 %attr(755,root,root) %{_libdir}/libsundials_nvecserial.so
+%attr(755,root,root) %{_libdir}/libsundials_sunlinsolband.so
+%attr(755,root,root) %{_libdir}/libsundials_sunlinsoldense.so
+%attr(755,root,root) %{_libdir}/libsundials_sunlinsolklu.so
+%attr(755,root,root) %{_libdir}/libsundials_sunlinsolpcg.so
+%attr(755,root,root) %{_libdir}/libsundials_sunlinsolspbcgs.so
+%attr(755,root,root) %{_libdir}/libsundials_sunlinsolspfgmr.so
+%attr(755,root,root) %{_libdir}/libsundials_sunlinsolspgmr.so
+%attr(755,root,root) %{_libdir}/libsundials_sunlinsolsptfqmr.so
+%attr(755,root,root) %{_libdir}/libsundials_sunmatrixband.so
+%attr(755,root,root) %{_libdir}/libsundials_sunmatrixdense.so
+%attr(755,root,root) %{_libdir}/libsundials_sunmatrixsparse.so
 # Fortran - shared
 %if %{with openmp}
 %attr(755,root,root) %{_libdir}/libsundials_fnvecopenmp.so
 %endif
 %attr(755,root,root) %{_libdir}/libsundials_fnvecpthreads.so
 %attr(755,root,root) %{_libdir}/libsundials_fnvecserial.so
+%attr(755,root,root) %{_libdir}/libsundials_fsunlinsolband.so
+%attr(755,root,root) %{_libdir}/libsundials_fsunlinsoldense.so
+%attr(755,root,root) %{_libdir}/libsundials_fsunlinsolklu.so
+%attr(755,root,root) %{_libdir}/libsundials_fsunlinsolpcg.so
+%attr(755,root,root) %{_libdir}/libsundials_fsunlinsolspbcgs.so
+%attr(755,root,root) %{_libdir}/libsundials_fsunlinsolspfgmr.so
+%attr(755,root,root) %{_libdir}/libsundials_fsunlinsolspgmr.so
+%attr(755,root,root) %{_libdir}/libsundials_fsunlinsolsptfqmr.so
+%attr(755,root,root) %{_libdir}/libsundials_fsunmatrixband.so
+%attr(755,root,root) %{_libdir}/libsundials_fsunmatrixdense.so
+%attr(755,root,root) %{_libdir}/libsundials_fsunmatrixsparse.so
 # Fortran - static only
 %{_libdir}/libsundials_farkode.a
 %{_libdir}/libsundials_fcvode.a
@@ -207,6 +273,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/kinsol
 %{_includedir}/nvector
 %{_includedir}/sundials
+%{_includedir}/sunlinsol
+%{_includedir}/sunmatrix
 %{_examplesdir}/%{name}-%{version}
 
 %files static
@@ -222,12 +290,34 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 %{_libdir}/libsundials_nvecpthreads.a
 %{_libdir}/libsundials_nvecserial.a
+%{_libdir}/libsundials_sunlinsolband.a
+%{_libdir}/libsundials_sunlinsoldense.a
+%{_libdir}/libsundials_sunlinsolklu.a
+%{_libdir}/libsundials_sunlinsolpcg.a
+%{_libdir}/libsundials_sunlinsolspbcgs.a
+%{_libdir}/libsundials_sunlinsolspfgmr.a
+%{_libdir}/libsundials_sunlinsolspgmr.a
+%{_libdir}/libsundials_sunlinsolsptfqmr.a
+%{_libdir}/libsundials_sunmatrixband.a
+%{_libdir}/libsundials_sunmatrixdense.a
+%{_libdir}/libsundials_sunmatrixsparse.a
 # Fortran
 %if %{with openmp}
 %{_libdir}/libsundials_fnvecopenmp.a
 %endif
 %{_libdir}/libsundials_fnvecpthreads.a
 %{_libdir}/libsundials_fnvecserial.a
+%{_libdir}/libsundials_fsunlinsolband.a
+%{_libdir}/libsundials_fsunlinsoldense.a
+%{_libdir}/libsundials_fsunlinsolklu.a
+%{_libdir}/libsundials_fsunlinsolpcg.a
+%{_libdir}/libsundials_fsunlinsolspbcgs.a
+%{_libdir}/libsundials_fsunlinsolspfgmr.a
+%{_libdir}/libsundials_fsunlinsolspgmr.a
+%{_libdir}/libsundials_fsunlinsolsptfqmr.a
+%{_libdir}/libsundials_fsunmatrixband.a
+%{_libdir}/libsundials_fsunmatrixdense.a
+%{_libdir}/libsundials_fsunmatrixsparse.a
 
 %files apidocs
 %defattr(644,root,root,755)
