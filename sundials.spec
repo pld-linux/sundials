@@ -9,14 +9,13 @@
 Summary:	SUite of Nonlinear and DIfferential/ALgebraic equation Solvers
 Summary(pl.UTF-8):	Zbiór procedur do rozwiązywania równań nieliniowych i różniczkowych/algebraicznych
 Name:		sundials
-Version:	3.1.1
+Version:	3.2.1
 Release:	1
 License:	BSD
 Group:		Libraries
 #Source0Download: https://computing.llnl.gov/projects/sundials/sundials-software
 Source0:	https://github.com/LLNL/sundials/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	22047ccec82ae7bcfe0ee51f68f70d56
-Patch0:		%{name}-cmake.patch
+# Source0-md5:	4214e606ad2c6e3ee60c36601a210a99
 URL:		https://computing.llnl.gov/projects/sundials
 BuildRequires:	SuiteSparse-KLU-devel
 BuildRequires:	cmake >= 2.8.1
@@ -109,7 +108,6 @@ Dokumentacja API bibliotek SUNDIALS.
 
 %prep
 %setup -q
-%patch0 -p1
 
 # duplicate of cvodes/ckpng.pdf
 %{__rm} doc/idas/ckpnt.pdf
