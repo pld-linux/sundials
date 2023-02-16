@@ -1,0 +1,545 @@
+--- sundials-5.8.0/examples/arkode/F2003_serial/ark_analytic_f2003.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/arkode/F2003_serial/ark_analytic_f2003.f90	2023-02-13 20:13:12.725726437 +0100
+@@ -34,7 +34,7 @@ module ode_mod
+   implicit none
+ 
+   ! number of equations
+-  integer(c_long), parameter :: neq = 1
++  integer(c_int64_t), parameter :: neq = 1
+ 
+   ! ODE parameters
+   double precision, parameter :: lamda = -100.0d0
+--- sundials-5.8.0/examples/arkode/F2003_serial/test_ark_butcher_f2003.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/arkode/F2003_serial/test_ark_butcher_f2003.f90	2023-02-13 20:13:29.335636453 +0100
+@@ -28,7 +28,7 @@ module test_arkode_butcher_table
+     implicit none
+     type(c_ptr) :: ERK, DIRK
+     integer(C_INT)  :: ierr, q(1), p(1)
+-    integer(C_LONG) :: liw(1), lrw(1)
++    integer(C_INT64_T) :: liw(1), lrw(1)
+     real(C_DOUBLE)  :: b(2), c(2), d(2), A(4)
+ 
+     !===== Setup ====
+--- sundials-5.8.0/examples/cvode/F2003_serial/cv_analytic_fp_f2003.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/cvode/F2003_serial/cv_analytic_fp_f2003.f90	2023-02-13 20:13:33.668946311 +0100
+@@ -33,7 +33,7 @@ module ode_mod
+   implicit none
+ 
+   ! number of equations
+-  integer(c_long), parameter :: neq = 1
++  integer(c_int64_t), parameter :: neq = 1
+ 
+   ! ODE parameters
+   double precision, parameter :: lamda = -100.0d0
+--- sundials-5.8.0/examples/cvode/F2003_serial/cv_analytic_sys_dns_f2003.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/cvode/F2003_serial/cv_analytic_sys_dns_f2003.f90	2023-02-13 20:13:37.578925129 +0100
+@@ -54,7 +54,7 @@ module ode_mod
+   implicit none
+ 
+   ! number of equations
+-  integer(c_long), parameter :: neq = 3
++  integer(c_int64_t), parameter :: neq = 3
+ 
+   ! ODE parameters
+   double precision, parameter :: lamda = -100.0d0
+--- sundials-5.8.0/examples/cvode/F2003_serial/cv_analytic_sys_dns_jac_f2003.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/cvode/F2003_serial/cv_analytic_sys_dns_jac_f2003.f90	2023-02-13 20:13:40.538909093 +0100
+@@ -54,7 +54,7 @@ module ode_mod
+   implicit none
+ 
+   ! number of equations
+-  integer(c_long), parameter :: neq = 3
++  integer(c_int64_t), parameter :: neq = 3
+ 
+   ! ODE parameters
+   double precision, parameter :: lamda = -100.0d0
+--- sundials-5.8.0/examples/cvode/F2003_serial/cv_brusselator_dns_f2003.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/cvode/F2003_serial/cv_brusselator_dns_f2003.f90	2023-02-13 20:13:43.518892949 +0100
+@@ -37,7 +37,7 @@ module ode_mod
+   implicit none
+ 
+   ! number of equations
+-  integer(c_long), parameter :: neq = 3
++  integer(c_int64_t), parameter :: neq = 3
+ 
+   ! ODE parameters
+   double precision, parameter :: a  = 1.2d0
+--- sundials-5.8.0/examples/cvode/F2003_serial/cv_analytic_sys_klu_f2003.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/cvode/F2003_serial/cv_analytic_sys_klu_f2003.f90	2023-02-13 20:13:47.742203403 +0100
+@@ -54,7 +54,7 @@ module ode_mod
+   implicit none
+ 
+   ! number of equations
+-  integer(c_long), parameter :: neq = 3
++  integer(c_int64_t), parameter :: neq = 3
+ 
+   ! ODE parameters
+   double precision, parameter :: lamda = -100.0d0
+@@ -144,8 +144,8 @@ contains
+     type(N_Vector)        :: tmp1, tmp2, tmp3 ! workspace N_Vectors
+ 
+     ! pointer to data in SUNDIALS matrix
+-    integer(c_long), pointer :: Jidxptr(:)
+-    integer(c_long), pointer :: Jidxval(:)
++    integer(c_int64_t), pointer :: Jidxptr(:)
++    integer(c_int64_t), pointer :: Jidxval(:)
+     real(c_double),  pointer :: Jmat(:)
+ 
+     !======= Internals ============
+--- sundials-5.8.0/examples/cvodes/F2003_serial/cvs_analytic_fp_f2003.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/cvodes/F2003_serial/cvs_analytic_fp_f2003.f90	2023-02-13 20:13:50.445522091 +0100
+@@ -33,7 +33,7 @@ module ode_mod
+   implicit none
+ 
+   ! number of equations
+-  integer(c_long), parameter :: neq = 1
++  integer(c_int64_t), parameter :: neq = 1
+ 
+   ! ODE parameters
+   double precision, parameter :: lamda = -100.0d0
+--- sundials-5.8.0/examples/cvodes/F2003_serial/cvsAdvDiff_FSA_non_f2003.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/cvodes/F2003_serial/cvsAdvDiff_FSA_non_f2003.f90	2023-02-13 20:13:53.515505459 +0100
+@@ -65,7 +65,7 @@ module ode_problem
+   integer(c_int),  parameter :: NP    = 2
+   integer(c_int),  parameter :: NS    = 2
+   integer(c_long), parameter :: MX    = 10
+-  integer(c_long), parameter :: NEQ   = MX
++  integer(c_int64_t), parameter :: NEQ   = MX
+ 
+   ! problem constants
+   real(c_double) :: ZERO  = 0.d0
+--- sundials-5.8.0/examples/ida/F2003_serial/idaHeat2D_kry_f2003.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/ida/F2003_serial/idaHeat2D_kry_f2003.f90	2023-02-13 20:13:56.898820464 +0100
+@@ -45,7 +45,7 @@ module dae_mod
+ 
+   integer(c_int),  parameter :: nout  = 11
+   integer(c_int),  parameter :: mgrid = 10
+-  integer(c_long), parameter :: neq   = mgrid*mgrid
++  integer(c_int64_t), parameter :: neq   = mgrid*mgrid
+ 
+   real(c_double) :: dx
+   real(c_double) :: coeff
+--- sundials-5.8.0/examples/ida/F2003_serial/idaRoberts_dns_f2003.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/ida/F2003_serial/idaRoberts_dns_f2003.f90	2023-02-13 20:43:53.645753317 +0100
+@@ -39,7 +39,7 @@ module dae_mod
+   !======= Declarations =========
+   implicit none
+ 
+-  integer(c_long), parameter :: neq = 3
++  integer(c_int64_t), parameter :: neq = 3
+   integer(c_long), parameter :: nout = 12
+ 
+ contains
+--- sundials-5.8.0/examples/idas/F2003_serial/idasHeat2D_kry_f2003.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/idas/F2003_serial/idasHeat2D_kry_f2003.f90	2023-02-13 20:54:19.025698677 +0100
+@@ -45,7 +45,7 @@ module dae_mod
+ 
+   integer(c_int),  parameter :: nout  = 11
+   integer(c_int),  parameter :: mgrid = 10
+-  integer(c_long), parameter :: neq   = mgrid*mgrid
++  integer(c_int64_t), parameter :: neq   = mgrid*mgrid
+ 
+   real(c_double) :: dx
+   real(c_double) :: coeff
+--- sundials-5.8.0/examples/idas/F2003_serial/idasAkzoNob_ASAi_dns_f2003.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/idas/F2003_serial/idasAkzoNob_ASAi_dns_f2003.f90	2023-02-13 21:16:05.661953354 +0100
+@@ -33,7 +33,7 @@ module dae_mod
+   implicit none
+ 
+   ! problem parameters
+-  integer(c_long), parameter :: NEQ   = 6
++  integer(c_int64_t), parameter :: NEQ   = 6
+   integer(c_long), parameter :: STEPS = 150
+   real(c_double),  parameter :: T0    = 0.0d0
+   real(c_double),  parameter :: TF    = 180.d0
+@@ -404,7 +404,7 @@ program main
+   retval = FIDASStolerancesB(mem, indexB(1), RTOLB, ATOLB)
+   call check_retval(retval, "FIDASStolerancesB")
+ 
+-  retval = FIDASetMaxNumStepsB(mem, indexB(1), 1000_8)
++  retval = FIDASetMaxNumStepsB(mem, indexB(1), 1000)
+   call check_retval(retval, "FIDASetMaxNumStepsB")
+ 
+   ! Create dense SUNMatrix for use in linear solves
+--- sundials-5.8.0/examples/kinsol/F2003_serial/kinRoboKin_dns_f2003.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/kinsol/F2003_serial/kinRoboKin_dns_f2003.f90	2023-02-13 22:13:09.663403946 +0100
+@@ -34,7 +34,7 @@ module prob_mod
+   implicit none
+ 
+   integer(c_long), parameter :: nvar = 8
+-  integer(c_long), parameter :: neq = 3*nvar
++  integer(c_int64_t), parameter :: neq = 3*nvar
+   real(c_double),  parameter :: ftol = 1.d-5
+   real(c_double),  parameter :: stol = 1.d-5
+ 
+--- sundials-5.8.0/examples/kinsol/F2003_serial/kinLaplace_bnd_f2003.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/kinsol/F2003_serial/kinLaplace_bnd_f2003.f90	2023-02-13 22:16:06.985776642 +0100
+@@ -31,9 +31,9 @@ module prob_mod
+   !======= Declarations =========
+   implicit none
+ 
+-  integer(c_long), parameter :: nx = 31
++  integer(c_int64_t), parameter :: nx = 31
+   integer(c_long), parameter :: ny = 31
+-  integer(c_long), parameter :: neq = nx*ny
++  integer(c_int64_t), parameter :: neq = nx*ny
+   integer(c_long), parameter :: skip = 3
+   real(c_double),  parameter :: ftol = 1.d-12
+ 
+--- sundials-5.8.0/examples/kinsol/F2003_serial/kinLaplace_picard_kry_f2003.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/kinsol/F2003_serial/kinLaplace_picard_kry_f2003.f90	2023-02-13 22:20:05.934482145 +0100
+@@ -35,7 +35,7 @@ module prob_mod
+ 
+   integer(c_long), parameter :: nx = 31
+   integer(c_long), parameter :: ny = 31
+-  integer(c_long), parameter :: neq = nx*ny
++  integer(c_int64_t), parameter :: neq = nx*ny
+   integer(c_long), parameter :: skip = 3
+   real(c_double),  parameter :: ftol = 1.d-12
+ 
+--- sundials-5.8.0/examples/nvector/serial/test_fnvector_serial_mod.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/nvector/serial/test_fnvector_serial_mod.f90	2023-02-14 20:57:45.896508986 +0100
+@@ -22,7 +22,7 @@ module test_nvector_serial
+   use test_utilities
+   implicit none
+ 
+-  integer(c_long), parameter :: N = 100 ! vector length
++  integer(c_int64_t), parameter :: N = 100 ! vector length
+   integer(c_int),  parameter :: nv = 3  ! length of vector arrays
+ 
+ contains
+@@ -30,7 +30,7 @@ contains
+   integer function smoke_tests() result(ret)
+     implicit none
+ 
+-    integer(c_long)         :: lenrw(1), leniw(1) ! real and int work space size
++    integer(c_int64_t)      :: lenrw(1), leniw(1) ! real and int work space size
+     integer(c_long)         :: ival               ! integer work value
+     type(c_ptr)             :: cptr               ! c_ptr work value
+     real(c_double)          :: rval               ! real work value
+--- sundials-5.8.0/examples/nvector/test_nvector.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/nvector/test_nvector.f90	2023-02-14 20:57:52.136475181 +0100
+@@ -38,7 +38,7 @@ integer(C_INT) function Test_FN_VMake(X,
+   implicit none
+ 
+   type(N_Vector)  :: X
+-  integer(C_LONG) :: local_length
++  integer(C_INT64_T) :: local_length
+   integer(C_INT)  :: myid
+ 
+   if (.not. has_data(X)) then
+@@ -64,7 +64,7 @@ integer(C_INT) function Test_FN_VGetArra
+   implicit none
+ 
+   type(N_Vector)  :: W
+-  integer(C_LONG) :: local_length
++  integer(C_INT64_T) :: local_length
+   integer(C_INT)  :: myid
+ 
+   ! check vector data
+@@ -98,7 +98,7 @@ integer(C_INT) function Test_FN_VLinearC
+     result(failure)
+ 
+   type(N_Vector)          :: X
+-  integer(C_LONG)         :: local_length
++  integer(C_INT64_T)      :: local_length
+   integer(C_INT)          :: myid, ierr
+   type(N_Vector), pointer :: Y1, Y2, Y3
+   type(c_ptr), target     :: V(3)
+--- sundials-5.8.0/examples/nvector/manyvector/test_fnvector_manyvector_mod.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/nvector/manyvector/test_fnvector_manyvector_mod.f90	2023-02-14 20:57:56.303119275 +0100
+@@ -24,17 +24,17 @@ module test_nvector_manyvector
+   implicit none
+ 
+   integer(c_int), parameter  :: nsubvecs = 2
+-  integer(c_long), parameter :: N1       = 100     ! individual vector length
+-  integer(c_long), parameter :: N2       = 200     ! individual vector length
++  integer(c_int64_t), parameter :: N1    = 100     ! individual vector length
++  integer(c_int64_t), parameter :: N2    = 200     ! individual vector length
+   integer(c_int),  parameter :: nv       = 3       ! length of vector arrays
+-  integer(c_long), parameter :: N        = N1 + N2 ! overall manyvector length
++  integer(c_int64_t), parameter :: N     = N1 + N2 ! overall manyvector length
+ 
+ contains
+ 
+   integer function smoke_tests() result(ret)
+     implicit none
+ 
+-    integer(c_long)         :: lenrw(1), leniw(1)     ! real and int work space size
++    integer(c_int64_t)      :: lenrw(1), leniw(1)     ! real and int work space size
+     integer(c_long)         :: ival                   ! integer work value
+     type(c_ptr)             :: cptr                   ! c_ptr work value
+     real(c_double)          :: rval                   ! real work value
+@@ -106,9 +106,9 @@ contains
+ 
+     ! test the ManyVector specific operations
+     ival = FN_VGetNumSubvectors_ManyVector(x)
+-    xptr => FN_VGetSubvectorArrayPointer_ManyVector(x, ival-1)
+-    ival = FN_VSetSubvectorArrayPointer_ManyVector(xptr, x, ival-1)
+-    tmp  => FN_VGetSubvector_ManyVector(x, ival-1)
++    xptr => FN_VGetSubvectorArrayPointer_ManyVector(x, ival-1_8)
++    ival = FN_VSetSubvectorArrayPointer_ManyVector(xptr, x, ival-1_8)
++    tmp  => FN_VGetSubvector_ManyVector(x, ival-1_8)
+ 
+     !==== Cleanup =====
+     tmp => FN_VGetVecAtIndexVectorArray(subvecs, 0)
+--- sundials-5.8.0/examples/nvector/pthreads/test_fnvector_pthreads_mod.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/nvector/pthreads/test_fnvector_pthreads_mod.f90	2023-02-14 20:57:59.366436013 +0100
+@@ -22,7 +22,7 @@ module test_nvector_pthreads
+   use test_utilities
+   implicit none
+ 
+-  integer(c_long), parameter :: N = 100 ! vector length
++  integer(c_int64_t), parameter :: N = 100 ! vector length
+   integer(c_int),  parameter :: nv = 3  ! length of vector arrays
+   integer(c_int),  parameter :: ns = 2  ! number of vector arrays
+ 
+@@ -31,7 +31,7 @@ module test_nvector_pthreads
+   integer function smoke_tests() result(ret)
+     implicit none
+ 
+-    integer(c_long)         :: lenrw(1), leniw(1) ! real and int work space size
++    integer(c_int64_t)      :: lenrw(1), leniw(1) ! real and int work space size
+     integer(c_long)         :: ival               ! integer work value
+     type(c_ptr)             :: cptr               ! c_ptr work value
+     real(c_double)          :: rval               ! real work value
+--- sundials-5.8.0/examples/nvector/C_openmp/test_fnvector_openmp_mod.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/nvector/C_openmp/test_fnvector_openmp_mod.f90	2023-02-14 20:58:02.486419110 +0100
+@@ -22,7 +22,7 @@ module test_nvector_openmp
+   use test_utilities
+   implicit none
+ 
+-  integer(c_long), parameter :: N = 100 ! vector length
++  integer(c_int64_t), parameter :: N = 100 ! vector length
+   integer(c_int),  parameter :: nv = 3  ! length of vector arrays
+   integer(c_int),  parameter :: ns = 2  ! number of vector arrays
+ 
+@@ -31,7 +31,7 @@ module test_nvector_openmp
+   integer function smoke_tests() result(ret)
+     implicit none
+ 
+-    integer(c_long)         :: lenrw(1), leniw(1) ! real and int work space size
++    integer(c_int64_t)      :: lenrw(1), leniw(1) ! real and int work space size
+     integer(c_long)         :: ival               ! integer work value
+     type(c_ptr)             :: cptr               ! c_ptr work value
+     real(c_double)          :: rval               ! real work value
+--- sundials-5.8.0/examples/sunmatrix/dense/test_fsunmatrix_dense_mod.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/sunmatrix/dense/test_fsunmatrix_dense_mod.f90	2023-02-14 20:58:05.713068297 +0100
+@@ -19,7 +19,7 @@ module test_fsunmatrix_dense
+   use, intrinsic :: iso_c_binding
+   implicit none
+ 
+-  integer(C_LONG), parameter :: N = 4
++  integer(C_INT64_T), parameter :: N = 4
+ 
+ contains
+ 
+--- sundials-5.8.0/examples/sunmatrix/band/test_fsunmatrix_band_mod.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/sunmatrix/band/test_fsunmatrix_band_mod.f90	2023-02-14 20:58:08.799718242 +0100
+@@ -19,9 +19,9 @@ module test_fsunmatrix_band
+   use, intrinsic :: iso_c_binding
+   implicit none
+ 
+-  integer(C_LONG), parameter :: N  = 4
+-  integer(C_LONG), parameter :: mu = 1
+-  integer(C_LONG), parameter :: ml = 1
++  integer(C_INT64_T), parameter :: N  = 4
++  integer(C_INT64_T), parameter :: mu = 1
++  integer(C_INT64_T), parameter :: ml = 1
+ 
+ contains
+ 
+@@ -107,7 +107,8 @@ contains
+     type(SUNMatrix), pointer :: A, I
+     type(N_Vector),  pointer :: x, y
+     real(C_DOUBLE),  pointer :: Adata(:), Idata(:), colj(:), xdata(:), ydata(:)
+-    integer(C_LONG)          :: ii, jj, smu, jstart, jend, offset
++    integer(C_LONG)          :: ii, smu, jstart, jend, offset
++    integer(C_INT64_T)       :: jj
+ 
+     fails = 0
+ 
+--- sundials-5.8.0/examples/sunmatrix/sparse/test_fsunmatrix_sparse_mod.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/sunmatrix/sparse/test_fsunmatrix_sparse_mod.f90	2023-02-14 20:58:12.293032650 +0100
+@@ -19,7 +19,7 @@ module test_fsunmatrix_sparse
+   use, intrinsic :: iso_c_binding
+   implicit none
+ 
+-  integer(C_LONG), parameter :: N = 5
++  integer(C_INT64_T), parameter :: N = 5
+ 
+ contains
+ 
+@@ -40,7 +40,7 @@ contains
+     type(SUNMatrix), pointer :: A, B               ! SUNMatrix
+     type(N_Vector),  pointer :: x, y               ! NVectors
+     real(C_DOUBLE),  pointer :: matdat(:)          ! matrix data pointer
+-    integer(C_LONG), pointer :: inddat(:)          ! indices pointer
++    integer(C_INT64_T), pointer :: inddat(:)       ! indices pointer
+     integer(C_LONG)          :: lenrw(1), leniw(1) ! matrix real and int work space size
+ 
+     integer(C_LONG) :: tmp1
+@@ -205,8 +205,8 @@ integer(C_INT) function check_matrix(A,
+   type(SUNMatrix)          :: A, B
+   real(C_DOUBLE)           :: tol
+   real(C_DOUBLE),  pointer :: Adata(:), Bdata(:)
+-  integer(C_LONG), pointer :: Aidxvals(:), Bidxvals(:)
+-  integer(C_LONG), pointer :: Aidxptrs(:), Bidxptrs(:)
++  integer(C_INT64_T), pointer :: Aidxvals(:), Bidxvals(:)
++  integer(C_INT64_T), pointer :: Aidxptrs(:), Bidxptrs(:)
+   integer(C_LONG)          :: i, np, Annz, Bnnz
+ 
+   fails = 0
+@@ -291,7 +291,7 @@ integer(C_INT) function check_matrix_ent
+   type(SUNMatrix)          :: A
+   real(C_DOUBLE)           :: c, tol
+   real(C_DOUBLE),  pointer :: Adata(:)
+-  integer(C_LONG), pointer :: Aidxptrs(:)
++  integer(C_INT64_T), pointer :: Aidxptrs(:)
+   integer(C_LONG)          :: i, np
+ 
+   fails = 0
+--- sundials-5.8.0/examples/sunlinsol/band/test_fsunlinsol_band_mod.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/sunlinsol/band/test_fsunlinsol_band_mod.f90	2023-02-14 20:58:15.576348196 +0100
+@@ -19,9 +19,9 @@ module test_fsunlinsol_band
+   use, intrinsic :: iso_c_binding
+   implicit none
+ 
+-  integer(C_LONG), parameter :: N = 10
+-  integer(C_LONG), parameter :: mu = 2
+-  integer(C_LONG), parameter :: ml = 3
++  integer(C_INT64_T), parameter :: N = 10
++  integer(C_INT64_T), parameter :: mu = 2
++  integer(C_INT64_T), parameter :: ml = 3
+ 
+ contains
+ 
+@@ -43,7 +43,8 @@ contains
+     real(C_DOUBLE),  pointer :: colj(:)            ! matrix column data
+     real(C_DOUBLE),  pointer :: xdata(:), Adata(:) ! data arrays
+     real(C_DOUBLE)           :: tmpr               ! temporary real value
+-    integer(C_LONG)          :: j, k
++    integer(C_INT64_T)       :: j
++    integer(C_LONG)          :: k
+     integer(C_LONG)          :: smu, kstart, kend, offset
+     integer(C_INT)           :: tmp
+ 
+--- sundials-5.8.0/examples/sunlinsol/dense/test_fsunlinsol_dense_mod.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/sunlinsol/dense/test_fsunlinsol_dense_mod.f90	2023-02-14 20:58:18.806330698 +0100
+@@ -19,7 +19,7 @@ module test_fsunlinsol_dense
+   use, intrinsic :: iso_c_binding
+   implicit none
+ 
+-  integer(C_LONG), private, parameter :: N = 100
++  integer(C_INT64_T), private, parameter :: N = 100
+ 
+ contains
+ 
+@@ -41,7 +41,8 @@ contains
+     real(C_DOUBLE),        pointer :: colj(:), colIj(:) ! matrix column data
+     real(C_DOUBLE),        pointer :: xdata(:)          ! x vector data
+     real(C_DOUBLE)                 :: tmpr              ! temporary real value
+-    integer(C_LONG)                :: j, k
++    integer(C_INT64_T)             :: j
++    integer(C_LONG)                :: k
+     integer(C_INT)                 :: tmp
+ 
+     fails = 0
+--- sundials-5.8.0/examples/sunlinsol/spgmr/serial/test_fsunlinsol_spgmr_mod_serial.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/sunlinsol/spgmr/serial/test_fsunlinsol_spgmr_mod_serial.f90	2023-02-14 20:58:21.812981076 +0100
+@@ -24,7 +24,7 @@ module test_fsunlinsol_spgmr_serial
+   use fsundials_nvector_mod
+   implicit none
+ 
+-  integer(C_LONG), private, parameter :: N = 100
++  integer(C_INT64_T), private, parameter :: N = 100
+   integer(C_INT),  private, parameter :: pretype = 1     ! Preconditioning type (1 or 2)
+   integer(C_INT),  private, parameter :: gstype  = 1     ! Gram-Schmidt orthoognalization type (1 or 2)
+   integer(C_INT),  private, parameter :: maxl    = 100   ! maxium Krylov subspace dimension (> 0)
+--- sundials-5.8.0/examples/sunlinsol/spfgmr/serial/test_fsunlinsol_spfgmr_mod_serial.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/sunlinsol/spfgmr/serial/test_fsunlinsol_spfgmr_mod_serial.f90	2023-02-14 20:58:25.326295376 +0100
+@@ -24,7 +24,7 @@ module test_fsunlinsol_spfgmr_serial
+   use fsundials_nvector_mod
+   implicit none
+ 
+-  integer(C_LONG), private, parameter :: N = 100
++  integer(C_INT64_T), private, parameter :: N = 100
+   integer(C_INT),  private, parameter :: pretype = 1     ! Preconditioning type (1 or 2)
+   integer(C_INT),  private, parameter :: gstype  = 1     ! Gram-Schmidt orthoognalization type (1 or 2)
+   integer(C_INT),  private, parameter :: maxl    = 100   ! maxium Krylov subspace dimension (> 0)
+--- sundials-5.8.0/examples/sunlinsol/spbcgs/serial/test_fsunlinsol_spbcgs_mod_serial.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/sunlinsol/spbcgs/serial/test_fsunlinsol_spbcgs_mod_serial.f90	2023-02-14 20:58:28.119613577 +0100
+@@ -24,7 +24,7 @@ module test_fsunlinsol_spbcgs_serial
+   use fsundials_nvector_mod
+   implicit none
+ 
+-  integer(C_LONG), private, parameter :: N = 100
++  integer(C_INT64_T), private, parameter :: N = 100
+   integer(C_INT),  private, parameter :: pretype = 1     ! Preconditioning type (1 or 2)
+   integer(C_INT),  private, parameter :: maxl    = 100   ! maxium Krylov subspace dimension (> 0)
+   real(C_DOUBLE),  private, parameter :: tol     = 1e-13 ! solver tolerance
+--- sundials-5.8.0/examples/sunlinsol/sptfqmr/serial/test_fsunlinsol_sptfqmr_mod_serial.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/sunlinsol/sptfqmr/serial/test_fsunlinsol_sptfqmr_mod_serial.f90	2023-02-14 20:58:30.999597975 +0100
+@@ -24,7 +24,7 @@ module test_fsunlinsol_sptfqmr_serial
+   use fsundials_nvector_mod
+   implicit none
+ 
+-  integer(C_LONG), private, parameter :: N = 100
++  integer(C_INT64_T), private, parameter :: N = 100
+   integer(C_INT),  private, parameter :: pretype = 1     ! Preconditioning type (1 or 2)
+   integer(C_INT),  private, parameter :: maxl    = 100   ! maxium Krylov subspace dimension (> 0)
+   real(C_DOUBLE),  private, parameter :: tol     = 1e-13 ! solver tolerance
+--- sundials-5.8.0/examples/sunlinsol/pcg/serial/test_fsunlinsol_pcg_mod_serial.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/sunlinsol/pcg/serial/test_fsunlinsol_pcg_mod_serial.f90	2023-02-14 20:58:33.842915904 +0100
+@@ -24,7 +24,7 @@ module test_fsunlinsol_pcg_serial
+   use fsundials_nvector_mod
+   implicit none
+ 
+-  integer(C_LONG), private, parameter :: N = 100
++  integer(C_INT64_T), private, parameter :: N = 100
+   integer(C_INT),  private, parameter :: pretype = 1     ! Preconditioning type (1 or 2)
+   integer(C_INT),  private, parameter :: maxl    = 500   ! maxium Krylov subspace dimension (> 0)
+   real(C_DOUBLE),  private, parameter :: tol     = 1e-13 ! solver tolerance
+--- sundials-5.8.0/examples/sunlinsol/klu/test_fsunlinsol_klu_mod.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/sunlinsol/klu/test_fsunlinsol_klu_mod.f90	2023-02-14 21:06:57.236855452 +0100
+@@ -19,7 +19,7 @@ module test_fsunlinsol_klu
+   use, intrinsic :: iso_c_binding
+   implicit none
+ 
+-  integer(C_LONG), private, parameter :: N = 300
++  integer(C_INT64_T), private, parameter :: N = 300
+ 
+ contains
+ 
+@@ -42,7 +42,8 @@ contains
+     real(C_DOUBLE),        pointer :: colj(:), colIj(:) ! matrix column data
+     real(C_DOUBLE),        pointer :: xdata(:)          ! x vector data
+     real(C_DOUBLE)                 :: tmpr              ! temporary real value
+-    integer(C_LONG)                :: j, k, i
++    integer(C_INT64_T)             :: j
++    integer(C_LONG)                :: k, i
+     integer(C_INT)                 :: tmp
+ 
+     fails = 0
+--- sundials-5.8.0/examples/sunnonlinsol/newton/test_fsunnonlinsol_newton_mod.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/sunnonlinsol/newton/test_fsunnonlinsol_newton_mod.f90	2023-02-14 21:26:07.477290732 +0100
+@@ -24,7 +24,7 @@ module test_fsunnonlinsol_newton
+ 
+   implicit none
+ 
+-  integer(C_LONG), parameter :: NEQ   = 3      ! number of equations
++  integer(C_INT64_T), parameter :: NEQ   = 3   ! number of equations
+   integer(C_INT),  parameter :: MAXIT = 10     ! max nonlinear iters.
+   real(C_DOUBLE),  parameter :: TOL   = 1.0e-2 ! nonlinear solver tolerance
+ 
+--- sundials-5.8.0/examples/sunnonlinsol/fixedpoint/test_fsunnonlinsol_fixedpoint_mod.f90.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/examples/sunnonlinsol/fixedpoint/test_fsunnonlinsol_fixedpoint_mod.f90	2023-02-14 21:29:38.692813146 +0100
+@@ -21,7 +21,7 @@ module test_fsunnonlinsol_fixedpoint
+ 
+   implicit none
+ 
+-  integer(C_LONG), parameter :: NEQ   = 3      ! number of equations
++  integer(C_INT64_T), parameter :: NEQ   = 3   ! number of equations
+   integer(C_INT),  parameter :: MAXIT = 10     ! max nonlinear iters.
+   real(C_DOUBLE),  parameter :: TOL   = 1.0e-4 ! nonlinear solver tolerance
+ 

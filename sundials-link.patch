@@ -1,0 +1,201 @@
+--- sundials-5.8.0/src/sunlinsol/band/CMakeLists.txt.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/src/sunlinsol/band/CMakeLists.txt	2023-02-15 20:44:27.592764801 +0100
+@@ -34,7 +34,7 @@ sundials_add_library(sundials_sunlinsolb
+   VERSION
+     ${sunlinsollib_VERSION}
+   SOVERSION
+-    ${sunlinsollib_VERSION}
++    ${sunlinsollib_SOVERSION}
+ )
+ 
+ message(STATUS "Added SUNLINSOL_BAND module")
+--- sundials-5.8.0/src/sunlinsol/dense/CMakeLists.txt.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/src/sunlinsol/dense/CMakeLists.txt	2023-02-15 20:44:46.245997081 +0100
+@@ -34,7 +34,7 @@ sundials_add_library(sundials_sunlinsold
+   VERSION
+     ${sunlinsollib_VERSION}
+   SOVERSION
+-    ${sunlinsollib_VERSION}
++    ${sunlinsollib_SOVERSION}
+ )
+ 
+ message(STATUS "Added SUNLINSOL_DENSE module")
+--- sundials-5.8.0/src/sunlinsol/klu/CMakeLists.txt.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/src/sunlinsol/klu/CMakeLists.txt	2023-02-15 20:44:57.062605149 +0100
+@@ -33,7 +33,7 @@ sundials_add_library(sundials_sunlinsolk
+   VERSION
+     ${sunlinsollib_VERSION}
+   SOVERSION
+-    ${sunlinsollib_VERSION}
++    ${sunlinsollib_SOVERSION}
+ )
+ 
+ message(STATUS "Added SUNLINSOL_KLU module")
+--- sundials-5.8.0/src/sunlinsol/lapackband/CMakeLists.txt.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/src/sunlinsol/lapackband/CMakeLists.txt	2023-02-15 21:20:48.607615895 +0100
+@@ -33,7 +33,7 @@ sundials_add_library(sundials_sunlinsoll
+   VERSION
+     ${sunlinsollib_VERSION}
+   SOVERSION
+-    ${sunlinsollib_VERSION}
++    ${sunlinsollib_SOVERSION}
+ )
+ 
+ message(STATUS "Added SUNLINSOL_LAPACKBAND module")
+--- sundials-5.8.0/src/sunlinsol/lapackdense/CMakeLists.txt.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/src/sunlinsol/lapackdense/CMakeLists.txt	2023-02-15 21:20:59.340891082 +0100
+@@ -33,7 +33,7 @@ sundials_add_library(sundials_sunlinsoll
+   VERSION
+     ${sunlinsollib_VERSION}
+   SOVERSION
+-    ${sunlinsollib_VERSION}
++    ${sunlinsollib_SOVERSION}
+ )
+ 
+ message(STATUS "Added SUNLINSOL_LAPACKDENSE module")
+--- sundials-5.8.0/src/sunlinsol/pcg/CMakeLists.txt.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/src/sunlinsol/pcg/CMakeLists.txt	2023-02-15 20:45:21.392473343 +0100
+@@ -32,7 +32,7 @@ sundials_add_library(sundials_sunlinsolp
+   VERSION
+     ${sunlinsollib_VERSION}
+   SOVERSION
+-    ${sunlinsollib_VERSION}
++    ${sunlinsollib_SOVERSION}
+ )
+ 
+ message(STATUS "Added SUNLINSOL_PCG module")
+@@ -48,7 +48,7 @@ if(BUILD_FORTRAN77_INTERFACE)
+     SOURCES
+       fsunlinsol_pcg.c
+     LINK_LIBRARIES
+-      PRIVATE sundials_sunlinsolpcg
++      PRIVATE sundials_sunlinsolpcg sundials_fnvecserial
+     OUTPUT_NAME
+       sundials_fsunlinsolpcg
+     VERSION
+--- sundials-5.8.0/src/sunlinsol/spbcgs/CMakeLists.txt.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/src/sunlinsol/spbcgs/CMakeLists.txt	2023-02-15 20:45:34.072404650 +0100
+@@ -32,7 +32,7 @@ sundials_add_library(sundials_sunlinsols
+   VERSION
+     ${sunlinsollib_VERSION}
+   SOVERSION
+-    ${sunlinsollib_VERSION}
++    ${sunlinsollib_SOVERSION}
+ )
+ 
+ message(STATUS "Added SUNLINSOL_SPBCGS module")
+@@ -48,7 +48,7 @@ if(BUILD_FORTRAN77_INTERFACE)
+     SOURCES
+       fsunlinsol_spbcgs.c
+     LINK_LIBRARIES
+-      PRIVATE sundials_sunlinsolspbcgs
++      PRIVATE sundials_sunlinsolspbcgs sundials_fnvecserial
+     OUTPUT_NAME
+       sundials_fsunlinsolspbcgs
+     VERSION
+--- sundials-5.8.0/src/sunlinsol/spfgmr/CMakeLists.txt.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/src/sunlinsol/spfgmr/CMakeLists.txt	2023-02-15 20:45:43.055689317 +0100
+@@ -31,7 +31,7 @@ sundials_add_library(sundials_sunlinsols
+   VERSION
+     ${sunlinsollib_VERSION}
+   SOVERSION
+-    ${sunlinsollib_VERSION}
++    ${sunlinsollib_SOVERSION}
+ )
+ 
+ message(STATUS "Added SUNLINSOL_SPFGMR module")
+@@ -47,7 +47,7 @@ if(BUILD_FORTRAN77_INTERFACE)
+     SOURCES
+       fsunlinsol_spfgmr.c
+     LINK_LIBRARIES
+-      PRIVATE sundials_sunlinsolspfgmr
++      PRIVATE sundials_sunlinsolspfgmr sundials_fnvecserial
+     OUTPUT_NAME
+       sundials_fsunlinsolspfgmr
+     VERSION
+--- sundials-5.8.0/src/sunlinsol/spgmr/CMakeLists.txt.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/src/sunlinsol/spgmr/CMakeLists.txt	2023-02-15 20:45:52.015640776 +0100
+@@ -31,7 +31,7 @@ sundials_add_library(sundials_sunlinsols
+   VERSION
+     ${sunlinsollib_VERSION}
+   SOVERSION
+-    ${sunlinsollib_VERSION}
++    ${sunlinsollib_SOVERSION}
+ )
+ 
+ message(STATUS "Added SUNLINSOL_SPGMR module")
+@@ -47,7 +47,7 @@ if(BUILD_FORTRAN77_INTERFACE)
+     SOURCES
+       fsunlinsol_spgmr.c
+     LINK_LIBRARIES
+-      PRIVATE sundials_sunlinsolspgmr
++      PRIVATE sundials_sunlinsolspgmr sundials_fnvecserial
+     OUTPUT_NAME
+       sundials_fsunlinsolspgmr
+     VERSION
+--- sundials-5.8.0/src/sunlinsol/sptfqmr/CMakeLists.txt.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/src/sunlinsol/sptfqmr/CMakeLists.txt	2023-02-15 20:46:10.768872515 +0100
+@@ -31,7 +31,7 @@ sundials_add_library(sundials_sunlinsols
+   VERSION
+     ${sunlinsollib_VERSION}
+   SOVERSION
+-    ${sunlinsollib_VERSION}
++    ${sunlinsollib_SOVERSION}
+ )
+ 
+ message(STATUS "Added SUNLINSOL_SPTFQMR module")
+@@ -47,7 +47,7 @@ if(BUILD_FORTRAN77_INTERFACE)
+     SOURCES
+       fsunlinsol_sptfqmr.c
+     LINK_LIBRARIES
+-      PRIVATE sundials_sunlinsolsptfqmr
++      PRIVATE sundials_sunlinsolsptfqmr sundials_fnvecserial
+     OUTPUT_NAME
+       sundials_fsunlinsolsptfqmr
+     VERSION
+--- sundials-5.8.0/src/sunnonlinsol/fixedpoint/CMakeLists.txt.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/src/sunnonlinsol/fixedpoint/CMakeLists.txt	2023-02-15 17:09:13.246781289 +0100
+@@ -31,7 +31,7 @@ sundials_add_library(sundials_sunnonlins
+   VERSION
+     ${sunnonlinsollib_VERSION}
+   SOVERSION
+-    ${sunnonlinsollib_VERSION}
++    ${sunnonlinsollib_SOVERSION}
+ )
+ 
+ message(STATUS "Added SUNNONLINSOL_FIXEDPOINT module")
+@@ -51,9 +51,9 @@ if(BUILD_FORTRAN77_INTERFACE)
+     OUTPUT_NAME
+       sundials_fsunnonlinsolfixedpoint
+     VERSION
+-      ${sunnonlinsol_VERSION}
++      ${sunnonlinsollib_VERSION}
+     SOVERSION
+-      ${sunnonlinsol_SOVERSION}
++      ${sunnonlinsollib_SOVERSION}
+   )
+   message(STATUS "Added SUNNONLINSOL_FIXEDPOINT F77 interface")
+ endif()
+--- sundials-5.8.0/src/sunnonlinsol/newton/CMakeLists.txt.orig	2021-09-30 17:44:39.000000000 +0200
++++ sundials-5.8.0/src/sunnonlinsol/newton/CMakeLists.txt	2023-02-15 17:09:34.109136542 +0100
+@@ -31,7 +31,7 @@ sundials_add_library(sundials_sunnonlins
+   VERSION
+     ${sunnonlinsollib_VERSION}
+   SOVERSION
+-    ${sunnonlinsollib_VERSION}
++    ${sunnonlinsollib_SOVERSION}
+ )
+ 
+ message(STATUS "Added SUNNONLINSOL_NEWTON module")
+@@ -51,9 +51,9 @@ if(BUILD_FORTRAN77_INTERFACE)
+     OUTPUT_NAME
+       sundials_fsunnonlinsolnewton
+     VERSION
+-      ${sunnonlinsol_VERSION}
++      ${sunnonlinsollib_VERSION}
+     SOVERSION
+-      ${sunnonlinsol_SOVERSION}
++      ${sunnonlinsollib_SOVERSION}
+   )
+   message(STATUS "Added SUNNONLINSOL_NEWTON F77 interface")
+ endif()
