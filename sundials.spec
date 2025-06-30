@@ -118,8 +118,8 @@ Dokumentacja API bibliotek SUNDIALS.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 # duplicate of cvodes/ckpng.pdf
 %{__rm} doc/idas/ckpnt.pdf
