@@ -1,0 +1,11 @@
+--- sundials-6.7.0/src/sunlinsol/klu/sunlinsol_klu.c.orig	2025-07-02 10:21:08.968961307 +0200
++++ sundials-6.7.0/src/sunlinsol/klu/sunlinsol_klu.c	2025-07-02 18:21:12.062113471 +0200
+@@ -48,7 +48,7 @@
+  */
+ 
+ #if defined(SUNDIALS_INT64_T)
+-#define KLU_INDEXTYPE long int
++#define KLU_INDEXTYPE int64_t
+ #else
+ #define KLU_INDEXTYPE int
+ #endif

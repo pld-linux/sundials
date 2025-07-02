@@ -25,6 +25,8 @@ Group:		Libraries
 Source0:	https://github.com/LLNL/sundials/archive/v%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	4f6a73bb82c8f23991d8685b1dcf6039
 Patch0:		%{name}-fortran.patch
+Patch1:		%{name}-hash.patch
+Patch2:		%{name}-types.patch
 URL:		https://computing.llnl.gov/projects/sundials
 BuildRequires:	SuiteSparse-KLU-devel
 BuildRequires:	cmake >= 3.12
@@ -118,6 +120,8 @@ Dokumentacja API bibliotek SUNDIALS.
 %prep
 %setup -q
 %patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
 
 # duplicate of cvodes/ckpng.pdf
 %{__rm} doc/idas/ckpnt.pdf

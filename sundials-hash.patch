@@ -1,0 +1,19 @@
+--- sundials-6.7.0/src/sundials/sundials_hashmap.h.orig	2023-12-18 11:41:45.000000000 +0100
++++ sundials-6.7.0/src/sundials/sundials_hashmap.h	2025-07-02 18:12:37.272673176 +0200
+@@ -23,8 +23,16 @@
+ #include <stdlib.h>
+ #include <string.h>
+ 
++#ifdef _LP64
++/* these values seem swapped???
++ * https://en.wikipedia.org/wiki/Fowler%E2%80%93Noll%E2%80%93Vo_hash_function
++ */
+ static const unsigned long HASH_PRIME        = 14695981039346656037U;
+ static const unsigned long HASH_OFFSET_BASIS = 1099511628211U;
++#else
++static const unsigned long HASH_PRIME        = 16777619U;
++static const unsigned long HASH_OFFSET_BASIS = 2166136261U;
++#endif
+ 
+ /*
+   For a nice discussion on popular hashing algorithms see:
